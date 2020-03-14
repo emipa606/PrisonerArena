@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <DutyDef>
+    <defName>SpectateFight</defName>
+    <socialModeMax>Off</socialModeMax>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+          <li Class="ThinkNode_ConditionalRandom">
+            <chance>0.1</chance>
+            <subNodes>
+              <li Class="ArenaBell.JobGiver_Cheer" />
+            </subNodes>
+          </li>
+          <li Class="ArenaBell.JobGiver_WatchFight" />
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+
+</Defs>

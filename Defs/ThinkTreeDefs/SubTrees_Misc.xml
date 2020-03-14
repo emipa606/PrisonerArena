@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--============= Mental states (critical) ============-->
+
+  <ThinkTreeDef>
+		<defName>MentalStateCritical</defName>
+    <thinkRoot Class="ThinkNode_Tagger">
+      <tagToGive>InMentalState</tagToGive>
+      <subNodes>
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>Fighter</state>
+          <subNodes>
+            <li Class="ThinkNode_Priority">
+              <subNodes>
+                <li Class="ArenaBell.JobGiver_Fighter">
+                  <targetAcquireRadius>65</targetAcquireRadius>
+                  <targetKeepRadius>72</targetKeepRadius>
+                </li>                
+                </subNodes>
+            </li>
+          </subNodes>
+        </li>
+      </subNodes>
+    </thinkRoot>
+	</ThinkTreeDef>
+
+
+</Defs>
