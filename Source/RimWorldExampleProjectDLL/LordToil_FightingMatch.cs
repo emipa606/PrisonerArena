@@ -45,7 +45,7 @@ namespace ArenaBell
 		// Token: 0x0600003D RID: 61 RVA: 0x00003308 File Offset: 0x00001508
 		private CellRect CalculateSpectateRect()
 		{
-			return CellRect.CenteredOn(this.bellRef.Position, Mathf.RoundToInt(this.bellRef.GetComp<CompBell>().radius - 1f));
+			return CellRect.CenteredOn(this.bellRef.Position, Mathf.RoundToInt(this.bellRef.GetComp<CompBell>().radius));
 		}
 
 		// Token: 0x04000018 RID: 24
