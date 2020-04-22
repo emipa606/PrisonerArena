@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-
   <ThingDef ParentName="BuildingBase">
     <defName>Building_ArenaBell</defName>
     <label>Arena Spot</label>
     <description>An area in which the fights will be held. Prisoners will fight within the white zones and the spectators would stay by the grey zone.</description>
-		<thingClass>ArenaBell.Building_Bell</thingClass>
+    <thingClass>ArenaBell.Building_Bell</thingClass>
     <graphicData>
       <texPath>Things/Building/ArenaSpot</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -16,25 +15,24 @@
       <WorkToBuild>0</WorkToBuild>
     </statBases>
     <comps>
-			<li Class="ArenaBell.CompProperties_Bell"/>
+      <li Class="ArenaBell.CompProperties_Bell" />
     </comps>
     <placeWorkers>
       <li>ArenaBell.PlaceWorker_ArenaRadius</li>
     </placeWorkers>
     <useHitPoints>false</useHitPoints>
-		<scatterableOnMapGen>false</scatterableOnMapGen>
+    <scatterableOnMapGen>false</scatterableOnMapGen>
     <designationCategory>Misc</designationCategory>
     <passability>Standable</passability>
-		<inspectorTabs>
-			<li>ArenaBell.ITab_BellManager</li>
-		</inspectorTabs>
+    <inspectorTabs>
+      <li>ArenaBell.ITab_BellManager</li>
+    </inspectorTabs>
     <building>
-			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+      <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
       <sowTag>SupportPlantsOnly</sowTag>
       <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
       <ai_chillDestination>false</ai_chillDestination>
     </building>
     <designationHotKey>Misc12</designationHotKey>
   </ThingDef>
-
 </Defs>

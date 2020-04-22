@@ -1,14 +1,7 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-
-  <MentalStateDef Abstract="True" Name="BaseMentalState">
-    <minTicksBeforeRecovery>90000</minTicksBeforeRecovery>
-    <recoveryMtbDays>0.3</recoveryMtbDays>
-  </MentalStateDef>
-
   <!-- Special mental states not from mental breaks -->
-
-  <MentalStateDef ParentName="BaseMentalState">
+  <MentalStateDef>
     <defName>Fighter</defName>
     <label>arena fighting</label>
     <stateClass>ArenaBell.MentalState_Fighter</stateClass>
@@ -23,5 +16,4 @@
     <baseInspectLine>In battle</baseInspectLine>
     <unspawnedCanDo>true</unspawnedCanDo>
   </MentalStateDef>
-
 </Defs>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <Operation Class="PatchOperationSequence">
+    <success>Always</success>
+    <operations>
+      <li Class="PatchOperationTest">
+        <xpath>/Defs/ThinkTreeDef[defName="MentalStateCritical"]</xpath>
+      </li>
+      <li Class="PatchOperationAdd">
+        <xpath>/Defs/ThinkTreeDef[defName="MentalStateCritical"]/thinkRoot/subNodes</xpath>
+        <value>
+          <li Class="ThinkNode_ConditionalMentalState">
+            <state>Fighter</state>
+            <subNodes>
+              <li Class="ThinkNode_Priority">
+                <subNodes>
+                  <li Class="ArenaBell.JobGiver_Fighter">
+                    <targetAcquireRadius>65</targetAcquireRadius>
+                    <targetKeepRadius>72</targetKeepRadius>
+                  </li>
+                </subNodes>
+              </li>
+            </subNodes>
+          </li>
+        </value>
+      </li>
+    </operations>
+  </Operation>
+</Patch>
