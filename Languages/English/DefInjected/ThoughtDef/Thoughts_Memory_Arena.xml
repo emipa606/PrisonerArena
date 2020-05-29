@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ArenaWinner.stages.0.label>champion</ArenaWinner.stages.0.label>
+  <ArenaWinner.stages.0.description>I won the arena battle!</ArenaWinner.stages.0.description>
+
+  <ArenaLoser.stages.0.label>lost the battle</ArenaLoser.stages.0.label>
+  <ArenaLoser.stages.0.description>I was forced into the battle and lost. Ouch</ArenaLoser.stages.0.description>
+
+
+</LanguageData>

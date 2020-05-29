@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Special mental states not from mental breaks -->
+
+  <Fighter.label>arena fighting</Fighter.label>
+  <Fighter.beginLetter>{0} is fighting at the arena. Remove this later</Fighter.beginLetter>
+  <Fighter.beginLetterLabel>Started battle</Fighter.beginLetterLabel>
+  <Fighter.baseInspectLine>In battle</Fighter.baseInspectLine>
+
+
+</LanguageData>
