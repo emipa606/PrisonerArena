@@ -73,7 +73,10 @@ namespace ArenaBell
 			Scribe_References.Look<Pawn>(ref this.fighter2.p, "fighter2p", false);
 			Scribe_Values.Look<bool>(ref this.fighter1.isInFight, "fighter2f", false, false);
 			Scribe_Values.Look<bool>(ref this.fighter2.isInFight, "fighter2f", false, false);
-		}
+            Scribe_Values.Look<bool>(ref this.toDeath, "toDeath", false, false);
+            Scribe_Values.Look<bool>(ref this.winnerGetsFreedom, "winnerGetsFreedom", false, false);
+            Scribe_Collections.Look(ref this.winners, "winners", LookMode.Value);
+        }
 
 		// Token: 0x06000053 RID: 83 RVA: 0x000036CA File Offset: 0x000018CA
 		public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
@@ -189,8 +192,17 @@ namespace ArenaBell
 						loser = this.fighter1.p;
 					}
 				}
-				winner.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOfArena.ArenaWinner, null);
-				loser.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOfArena.ArenaLoser, null);
+                if (winnerGetsFreedom)
+                {
+                    TryReleasePrisoner(winner);
+                }
+                else
+                {
+                    winner.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOfArena.ArenaWinner, null);
+                }
+                if(!loser.Dead)
+				    loser.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOfArena.ArenaLoser, null);
+                winners.Add(winner.NameFullColored);
 			}
 			this.fighter1 = new Fighter();
 			this.fighter2 = new Fighter();
@@ -200,6 +212,42 @@ namespace ArenaBell
 		private void DoTickerWork(int tickerAmount)
 		{
 		}
+
+        public void TryReleasePrisoner(Pawn prisoner)
+        {
+			Pawn warden = null;
+			foreach (Pawn current in base.Map.mapPawns.FreeColonistsSpawned)
+			{
+				bool flag = !current.Dead;
+				if (flag)
+				{
+					bool flag2 = current.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) && current.health.capacities.CapableOf(PawnCapacityDefOf.Moving);
+					if (flag2)
+					{
+						warden = current;
+						break;
+					}
+				}
+			}
+			bool flag3 = warden != null;
+			if (flag3)
+            {
+                IntVec3 c;
+                if (!RCellFinder.TryFindPrisonerReleaseCell(prisoner, warden, out c))
+                {
+                    Messages.Message("Could not find a suitable spot for releasing the prisoner", MessageTypeDefOf.RejectInput, true);
+                    return;
+                }
+                Log.Message($"{warden.NameShortColored} will release {prisoner.NameShortColored}");
+                Job job = new Job(JobDefOf.ReleasePrisoner, prisoner, c);
+                warden.jobs.EndCurrentJob(JobCondition.InterruptForced, false, false);
+                Log.Message($"{warden.jobs.TryTakeOrderedJob(job)} result");
+            }
+			else
+			{
+				Messages.Message("Not a warden in sight to give the winner their freedom, you need someone capable of releasing prisoners", MessageTypeDefOf.RejectInput, true);
+			}
+        }
 
 		// Token: 0x06000059 RID: 89 RVA: 0x00003A48 File Offset: 0x00001C48
 		public void TryHaulPrisoners(Pawn prisoner)
@@ -327,17 +375,30 @@ namespace ArenaBell
 		{
 			CompBell comp = base.GetComp<CompBell>();
 			IEnumerable<IntVec3> fighterSpots = CellRect.CenteredOn(base.Position, 1).ExpandedBy(Mathf.RoundToInt(comp.radius - 1f)).Corners;
+
 			bool isInFight = this.fighter1.isInFight;
 			IntVec3 result;
-			if (isInFight)
+            float radius = 1f;
+
+            if (isInFight)
 			{
-				result = fighterSpots.First<IntVec3>();
+                while (comp.radius - radius > 0)
+                {
+                    result = CellRect.CenteredOn(base.Position, 1).ExpandedBy(Mathf.RoundToInt(comp.radius - radius)).Corners.First<IntVec3>();
+                    if (result.GetRoom(Map) == Position.GetRoom(Map)) { return result; }
+                    radius = radius + 1f;
+                }
 			}
 			else
-			{
-				result = fighterSpots.Last<IntVec3>();
-			}
-			return result;
+            {
+                while (comp.radius - radius > 0)
+                {
+                    result = CellRect.CenteredOn(base.Position, 1).ExpandedBy(Mathf.RoundToInt(comp.radius - radius)).Corners.Last<IntVec3>();
+                    if (result.GetRoom(Map) == Position.GetRoom(Map)) { return result; }
+                    radius = radius + 1f;
+                }
+            }
+			return Position;
 		}
 
 		// Token: 0x06000065 RID: 101 RVA: 0x00003D50 File Offset: 0x00001F50
@@ -440,6 +501,8 @@ namespace ArenaBell
 
 		// Token: 0x0400002A RID: 42
 		private bool destroyedFlag = false;
+
+        public List<TaggedString> winners = new List<TaggedString>();
 
 		// Token: 0x02000024 RID: 36
 		public enum State

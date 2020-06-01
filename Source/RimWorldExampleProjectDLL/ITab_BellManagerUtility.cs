@@ -41,8 +41,40 @@ namespace ArenaBell
 			return result;
 		}
 
-		// Token: 0x06000074 RID: 116 RVA: 0x00004198 File Offset: 0x00002398
-		public static void OpenActor1SelectMenu(Building_Bell bell)
+        public static void OpenFightTypeMenu(Building_Bell bell)
+        {            
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+            Action deathAction = delegate ()
+            {
+                bell.toDeath = true;
+            };
+            Action downedAction = delegate ()
+            {
+                bell.toDeath = false;
+            };
+            list.Add(new FloatMenuOption("No killing!", downedAction));
+            list.Add(new FloatMenuOption("To the Death!", deathAction));
+            Find.WindowStack.Add(new FloatMenu(list));
+        }
+
+        public static void OpenRewardTypeMenu(Building_Bell bell)
+        {
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+            Action gloryAction = delegate ()
+            {
+                bell.winnerGetsFreedom = false;
+            };
+            Action freedomAction = delegate ()
+            {
+                bell.winnerGetsFreedom = true;
+            };
+            list.Add(new FloatMenuOption("For the Glory!", gloryAction));
+            list.Add(new FloatMenuOption("For my Freedom!", freedomAction));
+            Find.WindowStack.Add(new FloatMenu(list));
+        }
+
+        // Token: 0x06000074 RID: 116 RVA: 0x00004198 File Offset: 0x00002398
+        public static void OpenActor1SelectMenu(Building_Bell bell)
 		{
 			List<Pawn> actorList = new List<Pawn>();
 			StringBuilder s = new StringBuilder();
@@ -161,5 +193,5 @@ namespace ArenaBell
 
 		// Token: 0x0400002D RID: 45
 		public static float ColumnSize = 245f;
-	}
+    }
 }

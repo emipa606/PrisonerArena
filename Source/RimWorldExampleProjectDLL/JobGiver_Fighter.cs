@@ -96,9 +96,10 @@ namespace ArenaBell
 							else
 							{
 								bool isMeleeAttack = verb.verbProps.IsMeleeAttack;
-								if (isMeleeAttack)
+								if (isMeleeAttack || pawnTarget.Downed)
 								{
 									result = this.MeleeAttackJob(enemyTarget);
+                                    result.killIncappedTarget = bellRef.toDeath;
 								}
 								else
 								{
