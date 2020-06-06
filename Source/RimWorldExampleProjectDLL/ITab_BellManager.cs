@@ -73,12 +73,12 @@ namespace ArenaBell
             ITab_BellManager.DrawButton(delegate
             {
                 ITab_BellManagerUtility.OpenActor1SelectMenu(this.SelectBell);
-            }, label0, new Vector2(rect.xMax - ITab_BellManager.buttonSize.x - 10f, 75f), "Fighter #2", true);
+            }, label0, new Vector2(rect.xMax - ITab_BellManager.buttonSize.x - 100f, 75f), "Fighter #2", true);
             string label = ITab_BellManager.FighterLabel(this.SelectBell, 1);
             ITab_BellManager.DrawButton(delegate
             {
                 ITab_BellManagerUtility.OpenActor2SelectMenu(this.SelectBell);
-            }, label, new Vector2(rect.xMin, 75f), "Fighter #1", true);
+            }, label, new Vector2(rect.xMin + 100f, 75f), "Fighter #1", true);
             float offset = GUI.skin.label.CalcSize(new GUIContent("Vs.")).x / 2f;
             ITab_BellManager.centeredText("Vs.", new Vector2(rect.xMax / 2f - offset, 75f), 0, 0);
             bool flag = this.SelectBell.currentState == Building_Bell.State.rest;
@@ -116,13 +116,15 @@ namespace ArenaBell
             ITab_BellManager.DrawButton(delegate
             {
                 ITab_BellManagerUtility.OpenFightTypeMenu(this.SelectBell);
-            }, currentChoice, new Vector2(rect.xMax / 2f - ITab_BellManager.buttonSize.x / 2f, 175f), "Fight rules", true); //rect.xMin + 100f
-            //currentChoice = "For the Glory!";
-            //if (SelectBell.winnerGetsFreedom) { currentChoice = "For my Freedom!"; }
-            //ITab_BellManager.DrawButton(delegate
-            //{
-            //    ITab_BellManagerUtility.OpenRewardTypeMenu(this.SelectBell);
-            //}, currentChoice, new Vector2(rect.xMax - ITab_BellManager.buttonSize.x - 100f, 175f), "Winner reward", true);
+            }, currentChoice, new Vector2(rect.xMin + 100f, 195f), "Win condition", true);
+            currentChoice = "For Glory!";
+            if (SelectBell.winnerGetsFreedom) { currentChoice = "For Freedom!"; }
+            offset = GUI.skin.label.CalcSize(new GUIContent("Rules")).x / 2f;
+            ITab_BellManager.centeredText("Rules", new Vector2(rect.xMax / 2f - offset, 185f), 0, 0);
+            ITab_BellManager.DrawButton(delegate
+            {
+                ITab_BellManagerUtility.OpenRewardTypeMenu(this.SelectBell);
+            }, currentChoice, new Vector2(rect.xMax - ITab_BellManager.buttonSize.x - 100f, 195f), "Winner reward", true);
             ITab_BellManager.listingStandard.Gap();
             ITab_BellManager.listingStandard.End();
         }

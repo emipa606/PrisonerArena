@@ -194,7 +194,9 @@ namespace ArenaBell
 				}
                 if (winnerGetsFreedom)
                 {
-                    TryReleasePrisoner(winner);
+                    GenGuest.PrisonerRelease(winner);
+                    Messages.Message(pawn.NameFullColored + " has won their freedom and will try to leave this place as soon as possible.", MessageTypeDefOf.PositiveEvent, true);
+                    //TryReleasePrisoner(winner);
                 }
                 else
                 {

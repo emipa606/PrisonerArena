@@ -68,8 +68,8 @@ namespace ArenaBell
             {
                 bell.winnerGetsFreedom = true;
             };
-            list.Add(new FloatMenuOption("For the Glory!", gloryAction));
-            list.Add(new FloatMenuOption("For my Freedom!", freedomAction));
+            list.Add(new FloatMenuOption("For Glory!", gloryAction));
+            list.Add(new FloatMenuOption("For Freedom!", freedomAction));
             Find.WindowStack.Add(new FloatMenu(list));
         }
 
