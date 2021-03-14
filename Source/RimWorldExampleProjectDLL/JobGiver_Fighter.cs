@@ -15,9 +15,10 @@ namespace ArenaBell
 			MentalState_Fighter state = (MentalState_Fighter)pawn.MentalState;
 			Pawn pawnTarget = state.otherPawn;
 			Building_Bell bellRef = state.bellRef;
-			bool flag5 = (double)Rand.Value < 0.5;
 			Job result;
-			if (flag5)
+			Fighter fighterTarget = bellRef.getFighter(pawnTarget);
+
+			if (!fighterTarget.isInFight || (double)Rand.Value < 0.5)
 			{
 				result = new Job(JobDefOf.Wait_Combat)
 				{
@@ -26,16 +27,14 @@ namespace ArenaBell
 			}
 			else
 			{
-				bool flag6 = pawn.TryGetAttackVerb(null, false) == null;
-				if (flag6)
+				if (pawn.TryGetAttackVerb(null, false) == null)
 				{
 					result = null;
 				}
 				else
 				{
-					ThingWithComps primary = pawn.equipment.Primary;
-					bool flag7 = bellRef.currentState == Building_Bell.State.fight && primary == null;
-					if (flag7)
+					ThingWithComps primary = pawn.equipment != null ? pawn.equipment.Primary : null;
+					if (bellRef.currentState == Building_Bell.State.fight && pawn.equipment != null && primary == null)
 					{
 						List<Thing> suitableWeapons = new List<Thing>();
 						foreach (IntVec3 c in bellRef.GetComp<CompBell>().ValidCells)
@@ -55,21 +54,18 @@ namespace ArenaBell
 						int maxDistance = 9999;
 						foreach (Thing t2 in suitableWeapons)
 						{
-							bool flag9 = (t2.Position - pawn.Position).LengthManhattan < maxDistance;
-							if (flag9)
+							if ((t2.Position - pawn.Position).LengthManhattan < maxDistance)
 							{
 								weapon = t2;
 								maxDistance = (t2.Position - pawn.Position).LengthManhattan;
 							}
 						}
-						bool flag10 = weapon != null;
-						if (flag10)
+						if (weapon != null)
 						{
 							return new Job(JobDefOf.Equip, weapon);
 						}
 					}
-					bool flag11 = pawnTarget == null || !pawn.CanReach(pawnTarget, PathEndMode.ClosestTouch, Danger.Deadly, false, TraverseMode.ByPawn);
-					if (flag11)
+					if (pawnTarget == null || !pawn.CanReach(pawnTarget, PathEndMode.ClosestTouch, Danger.Deadly, false, TraverseMode.ByPawn))
 					{
 						result = new Job(JobDefOf.Wait);
 					}
@@ -79,8 +75,8 @@ namespace ArenaBell
 						pawn.mindState.enemyTarget = pawnTarget;
 						this.UpdateEnemyTarget(pawn);
 						Thing enemyTarget = pawn.mindState.enemyTarget;
-						bool flag12 = enemyTarget == null;
-						if (flag12)
+
+						if (enemyTarget == null)
 						{
 							result = null;
 						}
@@ -88,8 +84,7 @@ namespace ArenaBell
 						{
 							bool allowManualCastWeapons = !pawn.IsColonist;
 							Verb verb = pawn.TryGetAttackVerb(enemyTarget, allowManualCastWeapons);
-							bool flag13 = verb == null;
-							if (flag13)
+							if (verb == null)
 							{
 								result = null;
 							}
@@ -103,12 +98,14 @@ namespace ArenaBell
 								}
 								else
 								{
-									bool flag = CoverUtility.CalculateOverallBlockChance(pawn, enemyTarget.Position, pawn.Map) > 0.01f;
-									bool flag2 = pawn.Position.Standable(pawn.Map);
-									bool flag3 = verb.CanHitTarget(enemyTarget);
-									bool flag4 = (pawn.Position - enemyTarget.Position).LengthHorizontalSquared < 25;
-									bool flag14 = (flag && flag2 && flag3) || (flag4 && flag3);
-									if (flag14)
+									if ((
+											CoverUtility.CalculateOverallBlockChance(pawn, enemyTarget.Position, pawn.Map) > 0.01f
+											&& pawn.Position.Standable(pawn.Map)
+											&& verb.CanHitTarget(enemyTarget)
+										) || (
+											(pawn.Position - enemyTarget.Position).LengthHorizontalSquared < 25
+											&& verb.CanHitTarget(enemyTarget)
+										))
 									{
 										result = new Job(JobDefOf.AttackStatic, pawnTarget)
 										{
@@ -120,15 +117,13 @@ namespace ArenaBell
 									else
 									{
 										IntVec3 intVec;
-										bool flag15 = !this.TryFindShootingPosition(pawn, out intVec);
-										if (flag15)
+										if (!this.TryFindShootingPosition(pawn, out intVec))
 										{
 											result = null;
 										}
 										else
 										{
-											bool flag16 = intVec == pawn.Position;
-											if (flag16)
+											if (intVec == pawn.Position)
 											{
 												result = new Job(JobDefOf.AttackStatic, pawnTarget)
 												{

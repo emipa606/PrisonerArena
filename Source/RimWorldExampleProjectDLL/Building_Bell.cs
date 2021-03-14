@@ -194,15 +194,19 @@ namespace ArenaBell
 				}
                 if (winnerGetsFreedom)
                 {
-                    GenGuest.PrisonerRelease(winner);
-                    Messages.Message(pawn.NameFullColored + " has won their freedom and will try to leave this place as soon as possible.", MessageTypeDefOf.PositiveEvent, true);
-                    //TryReleasePrisoner(winner);
+					if (winner.IsPrisonerOfColony) {
+						GenGuest.PrisonerRelease(winner);
+						Messages.Message(pawn.NameFullColored + " has won their freedom and will try to leave this place as soon as possible.", MessageTypeDefOf.PositiveEvent, true);
+						//TryReleasePrisoner(winner);
+					}
                 }
                 else
                 {
-                    winner.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOfArena.ArenaWinner, null);
+					if (winner.needs.mood != null) {
+                    	winner.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOfArena.ArenaWinner, null);
+					}
                 }
-                if(!loser.Dead)
+                if (!loser.Dead && loser.needs.mood != null)
 				    loser.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOfArena.ArenaLoser, null);
                 winners.Add(winner.NameFullColored);
 			}
@@ -419,7 +423,7 @@ namespace ArenaBell
 		}
 
 		// Token: 0x06000066 RID: 102 RVA: 0x00003D8C File Offset: 0x00001F8C
-		private Fighter getFighter(Pawn p)
+		public Fighter getFighter(Pawn p)
 		{
 			bool flag = p == this.fighter1.p;
 			Fighter result;

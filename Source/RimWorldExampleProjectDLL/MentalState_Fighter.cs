@@ -35,7 +35,7 @@ namespace ArenaBell
             {
                 base.RecoverFromState();
                 ThingWithComps thingWithComps;
-                if (this.pawn.equipment.Primary != null)
+                if (this.pawn.equipment != null && this.pawn.equipment.Primary != null)
                     this.pawn.equipment.TryDropEquipment(this.pawn.equipment.Primary, out thingWithComps, this.pawn.Position, true);
                 bool flag = (!this.bellRef.toDeath && this.otherPawn.Downed) || this.otherPawn.Dead;
                 if (flag)

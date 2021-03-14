@@ -78,54 +78,52 @@ namespace ArenaBell
 		{
 			List<Pawn> actorList = new List<Pawn>();
 			StringBuilder s = new StringBuilder();
-			bool flag = bell.Map.mapPawns.PrisonersOfColonySpawned == null;
-			if (flag)
+
+			if (bell.Map.mapPawns.PrisonersOfColonySpawned == null || bell.Map.mapPawns.PrisonersOfColonySpawnedCount <= 0)
 			{
 				Messages.Message("No prisoners available.", MessageTypeDefOf.RejectInput, true);
 			}
 			else
 			{
-				bool flag2 = bell.Map.mapPawns.PrisonersOfColonySpawnedCount <= 0;
-				if (flag2)
+				foreach (Pawn candidate in bell.Map.mapPawns.PrisonersOfColonySpawned)
 				{
-					Messages.Message("No prisoners available.", MessageTypeDefOf.RejectInput, true);
+					actorList.Add(candidate);
 				}
-				else
+
+				foreach (Pawn candidate in bell.Map.mapPawns.AllPawns)
 				{
-					foreach (Pawn candidate in bell.Map.mapPawns.PrisonersOfColonySpawned)
+					if (candidate.Faction != null && candidate.Faction.IsPlayer && candidate.RaceProps.Animal)
 					{
 						actorList.Add(candidate);
 					}
-					bool flag3 = actorList != null;
-					if (flag3)
-					{
-						bool flag4 = actorList.Count <= 0;
-						if (flag4)
-						{
-							Messages.Message("No prisoners available.", MessageTypeDefOf.RejectInput, true);
-							return;
-						}
-					}
-					List<FloatMenuOption> list = new List<FloatMenuOption>();
-					foreach (Pawn actor in actorList)
-					{
-						Pawn localCol = actor;
-						Action action = delegate()
-						{
-							bool flag5 = localCol.health.capacities.CapableOf(PawnCapacityDefOf.Moving);
-							if (flag5)
-							{
-								bell.fighter1.p = localCol;
-							}
-							else
-							{
-								Messages.Message(localCol.Name.ToStringShort + " can't move and won't be a good fighter.", MessageTypeDefOf.RejectInput, true);
-							}
-						};
-						list.Add(new FloatMenuOption(localCol.LabelShort, action, MenuOptionPriority.Default, null, null, 0f, null, null));
-					}
-					Find.WindowStack.Add(new FloatMenu(list));
 				}
+				
+				if (actorList != null)
+				{
+					if (actorList.Count <= 0)
+					{
+						Messages.Message("No prisoners available.", MessageTypeDefOf.RejectInput, true);
+						return;
+					}
+				}
+				List<FloatMenuOption> list = new List<FloatMenuOption>();
+				foreach (Pawn actor in actorList)
+				{
+					Pawn localCol = actor;
+					Action action = delegate()
+					{
+						if (localCol.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
+						{
+							bell.fighter1.p = localCol;
+						}
+						else
+						{
+							Messages.Message(localCol.Name.ToStringShort + " can't move and won't be a good fighter.", MessageTypeDefOf.RejectInput, true);
+						}
+					};
+					list.Add(new FloatMenuOption(localCol.LabelShort, action, MenuOptionPriority.Default, null, null, 0f, null, null));
+				}
+				Find.WindowStack.Add(new FloatMenu(list));
 			}
 		}
 
@@ -134,54 +132,52 @@ namespace ArenaBell
 		{
 			List<Pawn> actorList = new List<Pawn>();
 			StringBuilder s = new StringBuilder();
-			bool flag = bell.Map.mapPawns.PrisonersOfColonySpawned == null;
-			if (flag)
+
+			if (bell.Map.mapPawns.PrisonersOfColonySpawned == null || bell.Map.mapPawns.PrisonersOfColonySpawnedCount <= 0)
 			{
 				Messages.Message("No prisoners available.", MessageTypeDefOf.RejectInput, true);
 			}
 			else
 			{
-				bool flag2 = bell.Map.mapPawns.PrisonersOfColonySpawnedCount <= 0;
-				if (flag2)
+				foreach (Pawn candidate in bell.Map.mapPawns.PrisonersOfColonySpawned)
 				{
-					Messages.Message("No prisoners available.", MessageTypeDefOf.RejectInput, true);
+					actorList.Add(candidate);
 				}
-				else
+
+				foreach (Pawn candidate in bell.Map.mapPawns.AllPawns)
 				{
-					foreach (Pawn candidate in bell.Map.mapPawns.PrisonersOfColonySpawned)
+					if (candidate.Faction != null && candidate.Faction.IsPlayer && candidate.RaceProps.Animal)
 					{
 						actorList.Add(candidate);
 					}
-					bool flag3 = actorList != null;
-					if (flag3)
-					{
-						bool flag4 = actorList.Count <= 0;
-						if (flag4)
-						{
-							Messages.Message("No prisoners available.", MessageTypeDefOf.RejectInput, true);
-							return;
-						}
-					}
-					List<FloatMenuOption> list = new List<FloatMenuOption>();
-					foreach (Pawn actor in actorList)
-					{
-						Pawn localCol = actor;
-						Action action = delegate()
-						{
-							bool flag5 = localCol.health.capacities.CapableOf(PawnCapacityDefOf.Moving);
-							if (flag5)
-							{
-								bell.fighter2.p = localCol;
-							}
-							else
-							{
-								Messages.Message(localCol.Name.ToStringShort + " can't move and won't be a good fighter.", MessageTypeDefOf.RejectInput, true);
-							}
-						};
-						list.Add(new FloatMenuOption(localCol.LabelShort, action, MenuOptionPriority.Default, null, null, 0f, null, null));
-					}
-					Find.WindowStack.Add(new FloatMenu(list));
 				}
+				
+				if (actorList != null)
+				{
+					if (actorList.Count <= 0)
+					{
+						Messages.Message("No prisoners available.", MessageTypeDefOf.RejectInput, true);
+						return;
+					}
+				}
+				List<FloatMenuOption> list = new List<FloatMenuOption>();
+				foreach (Pawn actor in actorList)
+				{
+					Pawn localCol = actor;
+					Action action = delegate()
+					{
+						if (localCol.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
+						{
+							bell.fighter2.p = localCol;
+						}
+						else
+						{
+							Messages.Message(localCol.Name.ToStringShort + " can't move and won't be a good fighter.", MessageTypeDefOf.RejectInput, true);
+						}
+					};
+					list.Add(new FloatMenuOption(localCol.LabelShort, action, MenuOptionPriority.Default, null, null, 0f, null, null));
+				}
+				Find.WindowStack.Add(new FloatMenu(list));
 			}
 		}
 
