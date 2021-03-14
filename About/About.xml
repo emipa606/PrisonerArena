@@ -11,36 +11,44 @@
   </supportedVersions>
   <modDependencies />
   <loadAfter />
-  <description>Update of Gl0b on Steams mod for RimWorld 1.1
+  <description>[img]https://i.imgur.com/WAEzk68.png[/img]
+Update of Gl0b on Steams mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1668624708
 
-[img]https://i.imgur.com/GYswkZ7.png[/img]
+- Fights can now go on until death
+- A scoreboard saves the names of all winners
+- Winners can now be released as reward instead of getting glory
+- Spectators stand outside of the gray area to enable construction of fences around the fighters
 
-Support-chat:
-https://discord.gg/SuhwVpM
+[img]https://i.imgur.com/7Gzt3Rg.png[/img]
 
-Non-steam version:
-https://github.com/emipa606/PrisonerArena
+[table]
+	[tr]
+		[td][url=https://invite.gg/Mlie][img]https://i.imgur.com/zdzzBrc.png[/img][/url][/td]
+		[td][url=https://github.com/emipa606/PrisonerArena][img]https://i.imgur.com/kTkpTOE.png[/img][/url][/td]
+	[/tr]
+[/table]
 	
---- Original Description ---
-Satisfy your barbarian needs!
+[img]https://i.imgur.com/NOW7jU1.png[/img]
+
+[h1]Satisfy your barbarian needs![/h1]
 
 Just a small mod I made which allows you arrange fights between your prisoners. Spectators would be happy and get plenty of joy!
 
-How does it work
+[h1]How does it work[/h1]
 You select two prisoners and start the fight from the arena spot menu. Any pawn capable of wardening will haul the fighters into the fighting area.
 
 Fighters will automatically equip any weapon laying within arena radius
 
-Build it from Misc -&gt; Arena Spot
+Build it from Misc -> Arena Spot
 
-Should be compatible with practically anything.
+Should be compatible with practically anything. 
 
 Safe to add to existing colony. Before removing the mod make sure you don't have any arena spots on your map and your prisoners aren't fighting.
 
 ---
 
-Might be coming
+[h1]Might be coming[/h1]
 
 Mass brawls
 Score board
@@ -50,6 +58,19 @@ Bets
 
 And that's about it. Report the bugs you found! Thanks for stopping by
 
-Updates Updates!
-2019-03-05: Fighters now can pick up guns!</description>
+[h1]Updates Updates![/h1]
+2019-03-05: Fighters now can pick up guns!
+
+
+[img]https://i.imgur.com/Rs6T6cr.png[/img]
+[list]
+[*] See if the the error persists if you just have this mod and its requirements active.
+[*] If not, try adding your other mods until it happens again.
+[*] Post your error-log using [url=https://steamcommunity.com/workshop/filedetails/?id=818773962]HugsLib[/url] and command Ctrl+F12
+[*] For best support, please use the Discord-channel for error-reporting.
+[*] Do not report errors by making a discussion-thread, I get no notification of that.
+[*] If you have the solution for a problem, please post it to the GitHub repository.
+[/list]
+</description>
 </ModMetaData>
+

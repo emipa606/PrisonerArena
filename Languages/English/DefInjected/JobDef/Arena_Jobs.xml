@@ -1,11 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-
   <!-- Item hauling -->
-
   <HaulingPrisoner.reportString>preparing prisoners for a fight.</HaulingPrisoner.reportString>
   <SpectateFightingMatch.reportString>spectating a fighting match.</SpectateFightingMatch.reportString>
   <Cheer.reportString>cheering for a fighter.</Cheer.reportString>
-
-
 </LanguageData>
