@@ -11,18 +11,15 @@ namespace ArenaBell
         protected override Job TryGiveJob(Pawn pawn)
         {
             var duty = pawn.mindState.duty;
-            var flag = duty == null;
             Job result;
-            if (flag)
+            if (duty == null)
             {
                 result = null;
             }
             else
             {
-                IntVec3 cell;
-                var flag2 = !SpectatorCellFinder.TryFindSpectatorCellFor(pawn, duty.spectateRect, pawn.Map, out cell,
-                    duty.spectateRectAllowedSides);
-                if (flag2)
+                if (!SpectatorCellFinder.TryFindSpectatorCellFor(pawn, duty.spectateRect, pawn.Map, out var cell,
+                    duty.spectateRectAllowedSides))
                 {
                     result = null;
                 }
@@ -30,9 +27,8 @@ namespace ArenaBell
                 {
                     var centerCell = duty.spectateRect.CenterCell;
                     var edifice = cell.GetEdifice(pawn.Map);
-                    var flag3 = edifice != null && edifice.def.category == ThingCategory.Building &&
-                                edifice.def.building.isSittable && pawn.CanReserve(edifice);
-                    if (flag3)
+                    if (edifice != null && edifice.def.category == ThingCategory.Building &&
+                        edifice.def.building.isSittable && pawn.CanReserve(edifice))
                     {
                         result = new Job(JobDefOfArena.SpectateFightingMatch, edifice, centerCell);
                     }

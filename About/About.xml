@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
   <name>Prisoner Arena (Continued)</name>
   <packageId>Mlie.PrisonerArena</packageId>
@@ -8,6 +8,7 @@
     <li>1.0</li>
     <li>1.1</li>
     <li>1.2</li>
+    <li>1.3</li>
   </supportedVersions>
   <modDependencies />
   <loadAfter />
@@ -19,6 +20,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1668624708
 - A scoreboard saves the names of all winners
 - Winners can now be released as reward instead of getting glory
 - Spectators stand outside of the gray area to enable construction of fences around the fighters
+- Animals can now be selected as fighters, thanks Gagaro
 
 [img]https://i.imgur.com/7Gzt3Rg.png[/img]
 
@@ -40,11 +42,11 @@ You select two prisoners and start the fight from the arena spot menu. Any pawn 
 
 Fighters will automatically equip any weapon laying within arena radius
 
-Build it from Misc -> Arena Spot
+Build it from Misc -&gt; Arena Spot
 
 Should be compatible with practically anything. 
 
-Safe to add to existing colony. Before removing the mod make sure you don't have any arena spots on your map and your prisoners aren't fighting.
+Safe to add to existing colony. Before removing the mod make sure you don&apos;t have any arena spots on your map and your prisoners aren&apos;t fighting.
 
 ---
 
@@ -56,11 +58,10 @@ Bets
 
 ---
 
-And that's about it. Report the bugs you found! Thanks for stopping by
+And that&apos;s about it. Report the bugs you found! Thanks for stopping by
 
 [h1]Updates Updates![/h1]
 2019-03-05: Fighters now can pick up guns!
-
 
 [img]https://i.imgur.com/Rs6T6cr.png[/img]
 [list]
@@ -73,4 +74,3 @@ And that's about it. Report the bugs you found! Thanks for stopping by
 [/list]
 </description>
 </ModMetaData>
-

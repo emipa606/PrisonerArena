@@ -25,16 +25,14 @@ namespace ArenaBell
             {
                 tickAction = delegate
                 {
-                    var flag = ((Building_Bell) pawn.mindState.duty.focus.Thing).currentState ==
-                               Building_Bell.State.fight;
-                    if (flag)
+                    if (((Building_Bell) pawn.mindState.duty.focus.Thing).currentState ==
+                        Building_Bell.State.fight)
                     {
                         JoyUtility.JoyTickCheckEnd(pawn, JoyTickFullJoyAction.None);
                     }
 
                     pawn.GainComfortFromCellIfPossible();
-                    var flag2 = pawn.IsHashIntervalTick(100);
-                    if (flag2)
+                    if (pawn.IsHashIntervalTick(100))
                     {
                         pawn.jobs.CheckForJobOverride();
                     }
@@ -51,11 +49,10 @@ namespace ArenaBell
             {
                 var rnd = new Random();
                 var rand = rnd.Next(0, 2);
-                var flag = rand == 0;
-                var _p = flag
+                var _p = rand == 0
                     ? ((Building_Bell) pawn.mindState.duty.focus.Thing).fighter1.p
                     : ((Building_Bell) pawn.mindState.duty.focus.Thing).fighter2.p;
-                var head = PortraitsCache.Get(_p, ColonistBarColonistDrawer.PawnTextureSize);
+                var head = PortraitsCache.Get(_p, ColonistBarColonistDrawer.PawnTextureSize, Rot4.South);
                 var headIcon = new Texture2D(75, 75);
                 for (var i = 0; i < 75; i++)
                 {
@@ -68,7 +65,7 @@ namespace ArenaBell
                 RenderTexture.active = head;
                 headIcon.ReadPixels(new Rect(-10f, 0f, 50f, head.height), 0, 0);
                 headIcon.Apply();
-                var cheerIcon = InteractionDefOfArena.Cheer.Symbol;
+                var cheerIcon = InteractionDefOfArena.Cheer.GetSymbol();
                 var tmp = RenderTexture.GetTemporary(cheerIcon.width, cheerIcon.height, 0, RenderTextureFormat.Default,
                     RenderTextureReadWrite.Default, 1);
                 Graphics.Blit(cheerIcon, tmp);
@@ -87,8 +84,7 @@ namespace ArenaBell
         // Token: 0x06000017 RID: 23 RVA: 0x000023D0 File Offset: 0x000005D0
         private static Texture2D MergeTextures(Texture2D aBottom, Texture2D aTop)
         {
-            var flag = aBottom.width != aTop.width || aBottom.height != aTop.height;
-            if (flag)
+            if (aBottom.width != aTop.width || aBottom.height != aTop.height)
             {
                 throw new InvalidOperationException("AlphaBlend only works with two equal sized images");
             }

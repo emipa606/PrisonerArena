@@ -42,14 +42,12 @@ namespace ArenaBell
             if (shouldStop)
             {
                 RecoverFromState();
-                ThingWithComps thingWithComps;
-                if (pawn.equipment != null && pawn.equipment.Primary != null)
+                if (pawn.equipment?.Primary != null)
                 {
-                    pawn.equipment.TryDropEquipment(pawn.equipment.Primary, out thingWithComps, pawn.Position);
+                    pawn.equipment.TryDropEquipment(pawn.equipment.Primary, out _, pawn.Position);
                 }
 
-                var flag = !bellRef.toDeath && otherPawn.Downed || otherPawn.Dead;
-                if (flag)
+                if (!bellRef.toDeath && otherPawn.Downed || otherPawn.Dead)
                 {
                     bellRef.endBrawl(pawn);
                 }

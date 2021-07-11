@@ -56,9 +56,8 @@ namespace ArenaBell
                             var thingList = c.GetThingList(bellRef.Map);
                             foreach (var thing in thingList)
                             {
-                                var flag8 = thing.def.IsWeapon && !suitableWeapons.Contains(thing) && thing.Spawned &&
-                                            pawn.CanReserve(thing);
-                                if (flag8)
+                                if (thing.def.IsWeapon && !suitableWeapons.Contains(thing) && thing.Spawned &&
+                                    pawn.CanReserve(thing))
                                 {
                                     suitableWeapons.Add(thing);
                                 }
@@ -128,7 +127,8 @@ namespace ArenaBell
                                         {
                                             maxNumMeleeAttacks = 1,
                                             expiryInterval = Rand.Range(420, 900),
-                                            canBash = true
+                                            canBashDoors = true,
+                                            canBashFences = true
                                         };
                                     }
                                     else
@@ -145,7 +145,8 @@ namespace ArenaBell
                                                 {
                                                     maxNumMeleeAttacks = 1,
                                                     expiryInterval = Rand.Range(420, 900),
-                                                    canBash = true
+                                                    canBashDoors = true,
+                                                    canBashFences = true
                                                 };
                                             }
                                             else
@@ -190,9 +191,8 @@ namespace ArenaBell
             var enemyTarget = pawn.mindState.enemyTarget;
             var allowManualCastWeapons = !pawn.IsColonist;
             var attackVerb = pawn.TryGetAttackVerb(enemyTarget, allowManualCastWeapons);
-            var flag = attackVerb == null;
             bool result;
-            if (flag)
+            if (attackVerb == null)
             {
                 dest = IntVec3.Invalid;
                 result = false;

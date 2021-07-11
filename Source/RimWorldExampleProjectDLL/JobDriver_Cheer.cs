@@ -22,8 +22,7 @@ namespace ArenaBell
                 tickAction = delegate
                 {
                     pawn.GainComfortFromCellIfPossible();
-                    var flag = pawn.IsHashIntervalTick(100);
-                    if (flag)
+                    if (pawn.IsHashIntervalTick(100))
                     {
                         pawn.jobs.CheckForJobOverride();
                     }

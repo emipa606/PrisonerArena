@@ -12,10 +12,10 @@ namespace ArenaBell
     internal class ITab_BellManager : ITab
     {
         // Token: 0x0400002F RID: 47
-        private static readonly Listing_Standard listingStandard = new();
+        private static readonly Listing_Standard listingStandard = new Listing_Standard();
 
         // Token: 0x04000030 RID: 48
-        private static readonly Vector2 buttonSize = new(120f, 30f);
+        private static readonly Vector2 buttonSize = new Vector2(120f, 30f);
 
         // Token: 0x04000031 RID: 49
         private static ArenaCardTab tab = ArenaCardTab.Manager;
@@ -45,15 +45,13 @@ namespace ArenaBell
             TabDrawer.DrawTabs(rect, pages);
             var rectTabs = new Rect(0f, num, rect.width, rect.height - num);
 
-            var flag = tab == ArenaCardTab.Manager;
-            if (flag)
+            if (tab == ArenaCardTab.Manager)
             {
                 FillTabManager(rectTabs);
             }
             else
             {
-                var flag2 = tab == ArenaCardTab.Leaderboard;
-                if (flag2)
+                if (tab == ArenaCardTab.Leaderboard)
                 {
                     FillTabLeaderboard(rectTabs);
                 }
@@ -75,25 +73,22 @@ namespace ArenaBell
                 new Vector2(rect.xMin + 100f, 75f), "Fighter #1");
             var offset = GUI.skin.label.CalcSize(new GUIContent("Vs.")).x / 2f;
             centeredText("Vs.", new Vector2((rect.xMax / 2f) - offset, 75f));
-            var flag = SelectBell.currentState == Building_Bell.State.rest;
-            if (flag)
+            if (SelectBell.currentState == Building_Bell.State.rest)
             {
                 DrawButton(delegate { SelectBell.brawl(); }, "Brawl!",
                     new Vector2((rect.xMax / 2f) - (buttonSize.x / 2f), 135f), "Let the brawl begin!");
             }
             else
             {
-                var flag2 = SelectBell.currentState == Building_Bell.State.preparation ||
-                            SelectBell.currentState == Building_Bell.State.scheduled;
-                if (flag2)
+                if (SelectBell.currentState == Building_Bell.State.preparation ||
+                    SelectBell.currentState == Building_Bell.State.scheduled)
                 {
                     DrawButton(delegate { SelectBell.TryCancelBrawl(); }, "Cancel",
                         new Vector2((rect.xMax / 2f) - (buttonSize.x / 2f), 135f), "Cancel the brawl");
                 }
                 else
                 {
-                    var flag3 = SelectBell.currentState == Building_Bell.State.fight;
-                    if (flag3)
+                    if (SelectBell.currentState == Building_Bell.State.fight)
                     {
                         DrawButton(delegate { SelectBell.endBrawl(null, true); }, "Suspend the brawl",
                             new Vector2((rect.xMax / 2f) - (buttonSize.x / 2f), 135f), "Suspend the brawl");
@@ -187,14 +182,12 @@ namespace ArenaBell
             bool active = true)
         {
             var rect = new Rect(pos.x, pos.y, buttonSize.x, buttonSize.y);
-            var flag = !tooltip.NullOrEmpty();
-            if (flag)
+            if (!tooltip.NullOrEmpty())
             {
                 TooltipHandler.TipRegion(rect, tooltip);
             }
 
-            var flag2 = Widgets.ButtonText(rect, text, true, false, Color.white, active);
-            if (!flag2)
+            if (!Widgets.ButtonText(rect, text, true, false, Color.white, active))
             {
                 return;
             }
@@ -213,14 +206,12 @@ namespace ArenaBell
         // Token: 0x06000088 RID: 136 RVA: 0x00004C88 File Offset: 0x00002E88
         private static void DoTooltip(Rect rect, string tooltip)
         {
-            var flag = !tooltip.NullOrEmpty();
-            if (!flag)
+            if (tooltip.NullOrEmpty())
             {
                 return;
             }
 
-            var flag2 = Mouse.IsOver(rect);
-            if (flag2)
+            if (Mouse.IsOver(rect))
             {
                 Widgets.DrawHighlight(rect);
             }
@@ -243,8 +234,7 @@ namespace ArenaBell
             var newArea = SelectBell.FightingArea;
             SelectBell.FightingArea = null;
             Text.Anchor = 0;
-            var flag = newArea != area;
-            if (flag)
+            if (newArea != area)
             {
                 setArea(newArea);
             }
@@ -253,8 +243,7 @@ namespace ArenaBell
         // Token: 0x0600008B RID: 139 RVA: 0x00004D34 File Offset: 0x00002F34
         private void DoAllowedAreaSelectors(Rect rect, Building_Bell b, Func<Area, string> getLabel)
         {
-            var flag = Find.CurrentMap == null;
-            if (flag)
+            if (Find.CurrentMap == null)
             {
                 return;
             }
@@ -269,8 +258,7 @@ namespace ArenaBell
             var num3 = 1;
             foreach (var a in areas)
             {
-                var flag2 = a == SelectBell.Map.areaManager.Home;
-                if (flag2)
+                if (a == SelectBell.Map.areaManager.Home)
                 {
                     continue;
                 }
@@ -304,18 +292,15 @@ namespace ArenaBell
             rect2.xMin += 3f;
             rect2.yMin += 2f;
             Widgets.Label(rect2, text);
-            var flag = b.FightingArea == area;
-            if (flag)
+            if (b.FightingArea == area)
             {
                 Widgets.DrawBox(rect, 2);
             }
 
-            var flag2 = Mouse.IsOver(rect);
-            if (flag2)
+            if (Mouse.IsOver(rect))
             {
                 area?.MarkForDraw();
-                var flag3 = Input.GetMouseButton(0) && b.FightingArea != area;
-                if (flag3)
+                if (Input.GetMouseButton(0) && b.FightingArea != area)
                 {
                     b.FightingArea = area;
                     SoundDefOf.Designate_DragStandard_Changed.PlayOneShotOnCamera();
@@ -329,24 +314,20 @@ namespace ArenaBell
         // Token: 0x0600008E RID: 142 RVA: 0x00004F68 File Offset: 0x00003168
         private static string FighterLabel(Building_Bell bell, int index)
         {
-            var flag = index == 0;
-            if (flag)
+            if (index == 0)
             {
-                var flag2 = bell.fighter1.p != null;
-                if (flag2)
+                if (bell.fighter1.p != null)
                 {
                     return bell.fighter1.p.Name.ToStringShort;
                 }
             }
 
-            var flag3 = index == 1;
-            if (!flag3)
+            if (index != 1)
             {
                 return "Select";
             }
 
-            var flag4 = bell.fighter2.p != null;
-            if (flag4)
+            if (bell.fighter2.p != null)
             {
                 return bell.fighter2.p.Name.ToStringShort;
             }

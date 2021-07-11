@@ -27,8 +27,7 @@ namespace ArenaBell
         protected override IEnumerable<Toil> MakeNewToils()
         {
             var haveChair = job.GetTarget(TargetIndex.A).HasThing;
-            var flag = haveChair;
-            if (flag)
+            if (haveChair)
             {
                 this.EndOnDespawnedOrNull(TargetIndex.A);
             }
@@ -38,17 +37,15 @@ namespace ArenaBell
             {
                 tickAction = delegate
                 {
-                    var flag2 = ((Building_Bell) pawn.mindState.duty.focus.Thing).currentState ==
-                                Building_Bell.State.fight;
-                    if (flag2)
+                    if (((Building_Bell) pawn.mindState.duty.focus.Thing).currentState ==
+                        Building_Bell.State.fight)
                     {
                         JoyUtility.JoyTickCheckEnd(pawn, JoyTickFullJoyAction.None);
                     }
 
                     pawn.rotationTracker.FaceCell(job.GetTarget(TargetIndex.B).Cell);
                     pawn.GainComfortFromCellIfPossible();
-                    var flag3 = pawn.IsHashIntervalTick(100);
-                    if (flag3)
+                    if (pawn.IsHashIntervalTick(100))
                     {
                         pawn.jobs.CheckForJobOverride();
                     }

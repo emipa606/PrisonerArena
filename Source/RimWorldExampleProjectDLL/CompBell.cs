@@ -10,7 +10,7 @@ namespace ArenaBell
     public class CompBell : ThingComp
     {
         // Token: 0x04000001 RID: 1
-        private static readonly List<IntVec3> validCells = new();
+        private static readonly List<IntVec3> validCells = new List<IntVec3>();
 
         // Token: 0x04000002 RID: 2
         public float radius = 3f;
@@ -86,17 +86,15 @@ namespace ArenaBell
         private List<IntVec3> ValidCellsAround(IntVec3 pos, Map map, CellRect rect)
         {
             validCells.Clear();
-            var flag = !pos.InBounds(map);
             List<IntVec3> result;
-            if (flag)
+            if (!pos.InBounds(map))
             {
                 result = validCells;
             }
             else
             {
                 var region = pos.GetRegion(map);
-                var flag2 = region == null;
-                if (flag2)
+                if (region == null)
                 {
                     result = validCells;
                 }
@@ -106,8 +104,7 @@ namespace ArenaBell
                     {
                         foreach (var item in r.Cells)
                         {
-                            var flag3 = InDistOfRect(item, rect);
-                            if (flag3)
+                            if (InDistOfRect(item, rect))
                             {
                                 validCells.Add(item);
                             }

@@ -19,16 +19,14 @@ namespace ArenaBell
         // Token: 0x06000073 RID: 115 RVA: 0x00004124 File Offset: 0x00002324
         public static string FighterLabel(int index, Building_Bell bell)
         {
-            var flag = bell.fighter1.p == null;
             string result;
-            if (flag)
+            if (bell.fighter1.p == null)
             {
                 result = "Select";
             }
             else
             {
-                var flag2 = index == 0;
-                if (flag2)
+                if (index == 0)
                 {
                     result = bell.fighter1.p.Name.ToStringShort;
                     if (bell.fighter1.p.AnimalOrWildMan())
@@ -38,8 +36,7 @@ namespace ArenaBell
                 }
                 else
                 {
-                    var flag3 = index == 1;
-                    if (flag3)
+                    if (index == 1)
                     {
                         result = bell.fighter2.p.Name.ToStringShort;
                         if (bell.fighter2.p.AnimalOrWildMan())

@@ -33,59 +33,48 @@ namespace ArenaBell
         public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false)
         {
             var building = t as Building_Bell;
-            var flag = t.Faction != pawn.Faction;
-            if (flag)
+            if (t.Faction != pawn.Faction)
             {
                 return false;
             }
 
-            var flag2 = building == null;
-            if (flag2)
+            if (building == null)
             {
                 return false;
             }
 
-            var flag3 = building.IsForbidden(pawn);
-            if (flag3)
+            if (building.IsForbidden(pawn))
             {
                 return false;
             }
 
-            var flag4 = building.currentState == Building_Bell.State.rest;
-            if (flag4)
+            if (building.currentState == Building_Bell.State.rest)
             {
                 return false;
             }
 
-            var flag5 = building.currentState != Building_Bell.State.scheduled;
-            if (flag5)
+            if (building.currentState != Building_Bell.State.scheduled)
             {
-                var flag6 = building.fighter1.isInFight && building.fighter1.isInFight;
-                if (flag6)
+                if (building.fighter1.isInFight && building.fighter1.isInFight)
                 {
                     return false;
                 }
             }
 
-            var flag7 = !pawn.CanReserve(building.fighter1.p, 1, -1, null, forced);
-            if (flag7)
+            if (!pawn.CanReserve(building.fighter1.p, 1, -1, null, forced))
             {
                 return false;
             }
 
-            var flag8 = !pawn.CanReserve(building.fighter2.p, 1, -1, null, forced);
-            return !flag8;
+            return pawn.CanReserve(building.fighter2.p, 1, -1, null, forced);
         }
 
         // Token: 0x06000071 RID: 113 RVA: 0x00004090 File Offset: 0x00002290
         public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
         {
-            var building = t as Building_Bell;
-            var flag = building != null && building.currentState != Building_Bell.State.scheduled;
-            if (flag)
+            if (t is Building_Bell building && building.currentState != Building_Bell.State.scheduled)
             {
-                var flag2 = building.fighter1.isInFight && building.fighter1.isInFight;
-                if (flag2)
+                if (building.fighter1.isInFight && building.fighter1.isInFight)
                 {
                     return null;
                 }

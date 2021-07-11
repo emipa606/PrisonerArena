@@ -36,10 +36,10 @@ namespace ArenaBell
         private bool destroyedFlag;
 
         // Token: 0x04000023 RID: 35
-        public Fighter fighter1 = new();
+        public Fighter fighter1 = new Fighter();
 
         // Token: 0x04000024 RID: 36
-        public Fighter fighter2 = new();
+        public Fighter fighter2 = new Fighter();
 
         // Token: 0x04000021 RID: 33
         private Area fightingArea_int;
@@ -59,7 +59,7 @@ namespace ArenaBell
         // Token: 0x04000028 RID: 40
         public bool winnerGetsFreedom;
 
-        public List<TaggedString> winners = new();
+        public List<TaggedString> winners = new List<TaggedString>();
 
         // Token: 0x17000007 RID: 7
         // (get) Token: 0x0600004D RID: 77 RVA: 0x000035E4 File Offset: 0x000017E4
@@ -68,8 +68,7 @@ namespace ArenaBell
         {
             get
             {
-                var flag = fightingArea_int != null && fightingArea_int.Map != MapHeld;
-                var result = flag ? null : fightingArea_int;
+                var result = fightingArea_int != null && fightingArea_int.Map != MapHeld ? null : fightingArea_int;
                 return result;
             }
             set => fightingArea_int = value;
@@ -121,8 +120,7 @@ namespace ArenaBell
         // Token: 0x06000054 RID: 84 RVA: 0x000036DC File Offset: 0x000018DC
         public void brawl()
         {
-            var flag = IsBusy();
-            if (flag)
+            if (IsBusy())
             {
                 var state = currentState;
                 if (state == State.preparation)
@@ -138,31 +136,27 @@ namespace ArenaBell
                 }
             }
 
-            var flag2 = fighter1.p == null || fighter2.p == null;
-            if (flag2)
+            if (fighter1.p == null || fighter2.p == null)
             {
                 Messages.Message("Hey! Select two of them", MessageTypeDefOf.RejectInput);
             }
             else
             {
-                var flag3 = fighter1.p == fighter2.p;
-                if (flag3)
+                if (fighter1.p == fighter2.p)
                 {
                     Messages.Message("Fighter can't be fighting themselves, select two different ones",
                         MessageTypeDefOf.RejectInput);
                 }
                 else
                 {
-                    var flag4 = !fightCapable(fighter1.p);
-                    if (flag4)
+                    if (!fightCapable(fighter1.p))
                     {
                         Messages.Message(fighter1.p.Name.ToStringShort + " can't move and won't be a good fighter.",
                             MessageTypeDefOf.RejectInput);
                     }
                     else
                     {
-                        var flag5 = !fightCapable(fighter2.p);
-                        if (flag5)
+                        if (!fightCapable(fighter2.p))
                         {
                             Messages.Message(fighter2.p.Name.ToStringShort + " can't move and won't be a good fighter.",
                                 MessageTypeDefOf.RejectInput);
@@ -193,9 +187,9 @@ namespace ArenaBell
             f.p.mindState.mentalStateHandler.Reset();
             var mentalStateHandler = f.p.mindState.mentalStateHandler;
             var ArenaFighting = MentalStateDefOfArena.Fighter;
-            var pawn = f.p;
+            var unused = f.p;
             var stateDef = ArenaFighting;
-            var otherPawn = getOtherFighter(f).p;
+            var unused1 = getOtherFighter(f).p;
             mentalStateHandler.TryStartMentalState(stateDef, "", false, false, null, true);
             if (f.p.MentalState is not MentalState_Fighter mentalState)
             {
@@ -221,16 +215,14 @@ namespace ArenaBell
                 if (pawn != null)
                 {
                     Messages.Message("The winner is " + pawn.Name.ToStringShort + "!", MessageTypeDefOf.RejectInput);
-                    var flag = pawn == fighter1.p;
-                    if (flag)
+                    if (pawn == fighter1.p)
                     {
                         winner = fighter1.p;
                         loser = fighter2.p;
                     }
                     else
                     {
-                        var flag2 = pawn == fighter2.p;
-                        if (flag2)
+                        if (pawn == fighter2.p)
                         {
                             winner = fighter2.p;
                             loser = fighter1.p;
@@ -271,7 +263,7 @@ namespace ArenaBell
         }
 
         // Token: 0x06000058 RID: 88 RVA: 0x00003A42 File Offset: 0x00001C42
-        private void DoTickerWork(int tickerAmount)
+        private void DoTickerWork()
         {
         }
 
@@ -280,15 +272,13 @@ namespace ArenaBell
             Pawn warden = null;
             foreach (var current in Map.mapPawns.FreeColonistsSpawned)
             {
-                var flag = !current.Dead;
-                if (!flag)
+                if (current.Dead)
                 {
                     continue;
                 }
 
-                var flag2 = current.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) &&
-                            current.health.capacities.CapableOf(PawnCapacityDefOf.Moving);
-                if (!flag2)
+                if (!(current.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) &&
+                      current.health.capacities.CapableOf(PawnCapacityDefOf.Moving)))
                 {
                     continue;
                 }
@@ -297,8 +287,7 @@ namespace ArenaBell
                 break;
             }
 
-            var flag3 = warden != null;
-            if (flag3)
+            if (warden != null)
             {
                 if (!RCellFinder.TryFindPrisonerReleaseCell(prisoner, warden, out var c))
                 {
@@ -326,15 +315,13 @@ namespace ArenaBell
             Pawn warden = null;
             foreach (var current in Map.mapPawns.FreeColonistsSpawned)
             {
-                var flag = !current.Dead;
-                if (!flag)
+                if (current.Dead)
                 {
                     continue;
                 }
 
-                var flag2 = current.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) &&
-                            current.health.capacities.CapableOf(PawnCapacityDefOf.Moving);
-                if (!flag2)
+                if (!(current.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) &&
+                      current.health.capacities.CapableOf(PawnCapacityDefOf.Moving)))
                 {
                     continue;
                 }
@@ -343,8 +330,7 @@ namespace ArenaBell
                 break;
             }
 
-            var flag3 = warden != null;
-            if (flag3)
+            if (warden != null)
             {
                 StartHaulPrisoners(warden, prisoner);
             }
@@ -359,8 +345,7 @@ namespace ArenaBell
         // Token: 0x0600005A RID: 90 RVA: 0x00003B14 File Offset: 0x00001D14
         private void StartHaulPrisoners(Pawn warden, Pawn prisoner)
         {
-            var flag = Destroyed || !Spawned;
-            if (flag)
+            if (Destroyed || !Spawned)
             {
                 TryCancelBrawl("Someone thrashed the bell!");
             }
@@ -376,8 +361,7 @@ namespace ArenaBell
         {
             getFighter(p).isInFight = true;
             startFightingState(getFighter(p));
-            var flag = fighter1.isInFight && fighter2.isInFight;
-            if (!flag)
+            if (!(fighter1.isInFight && fighter2.isInFight))
             {
                 return;
             }
@@ -407,9 +391,8 @@ namespace ArenaBell
         // Token: 0x06000060 RID: 96 RVA: 0x00003C74 File Offset: 0x00001E74
         private bool fightCapable(Pawn p)
         {
-            var flag = !p.health.capacities.CapableOf(PawnCapacityDefOf.Moving);
             bool result;
-            if (flag)
+            if (!p.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
             {
                 result = false;
             }
@@ -444,7 +427,7 @@ namespace ArenaBell
         public IntVec3 getFighterStandPoint()
         {
             var comp = GetComp<CompBell>();
-            var fighterSpots = CellRect.CenteredOn(Position, 1).ExpandedBy(Mathf.RoundToInt(comp.radius - 1f)).Corners;
+            var unused = CellRect.CenteredOn(Position, 1).ExpandedBy(Mathf.RoundToInt(comp.radius - 1f)).Corners;
 
             var isInFight = fighter1.isInFight;
             IntVec3 result;
@@ -492,16 +475,14 @@ namespace ArenaBell
         // Token: 0x06000066 RID: 102 RVA: 0x00003D8C File Offset: 0x00001F8C
         public Fighter getFighter(Pawn p)
         {
-            var flag = p == fighter1.p;
             Fighter result;
-            if (flag)
+            if (p == fighter1.p)
             {
                 result = fighter1;
             }
             else
             {
-                var flag2 = p == fighter2.p;
-                result = flag2 ? fighter2 : null;
+                result = p == fighter2.p ? fighter2 : null;
             }
 
             return result;
@@ -510,17 +491,14 @@ namespace ArenaBell
         // Token: 0x06000067 RID: 103 RVA: 0x00003DD8 File Offset: 0x00001FD8
         public Pawn getPrisonerForHaul()
         {
-            var flag = !fighter1.isInFight;
-            Pawn p;
-            p = flag ? fighter1.p : fighter2.p;
+            var p = !fighter1.isInFight ? fighter1.p : fighter2.p;
             return p;
         }
 
         // Token: 0x06000068 RID: 104 RVA: 0x00003E18 File Offset: 0x00002018
         private Fighter getOtherFighter(Fighter f)
         {
-            var flag = f.p == fighter1.p;
-            var result = flag ? fighter2 : fighter1;
+            var result = f.p == fighter1.p ? fighter2 : fighter1;
             return result;
         }
     }

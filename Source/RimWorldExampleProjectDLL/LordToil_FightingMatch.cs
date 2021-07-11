@@ -9,7 +9,7 @@ namespace ArenaBell
     public class LordToil_FightingMatch : LordToil
     {
         // Token: 0x04000018 RID: 24
-        public static readonly IntVec3 OtherFianceNoMarriageSpotCellOffset = new(-1, 0, 0);
+        public static readonly IntVec3 OtherFianceNoMarriageSpotCellOffset = new IntVec3(-1, 0, 0);
 
         // Token: 0x0400001A RID: 26
         private readonly Building_Bell bellRef;

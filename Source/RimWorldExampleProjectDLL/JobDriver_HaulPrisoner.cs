@@ -38,13 +38,12 @@ namespace ArenaBell
             yield return Toils_Reserve.Reserve(TargetIndex.B);
             this.FailOn(delegate
             {
-                var billGiver = job.GetTarget(TargetIndex.A).Thing as IBillGiver;
+                var unused = job.GetTarget(TargetIndex.A).Thing as IBillGiver;
                 return BellRef.currentState == Building_Bell.State.rest;
             });
             AddFinishAction(delegate
             {
-                var flag = Takee == BellRef.fighter1.p;
-                if (flag)
+                if (Takee == BellRef.fighter1.p)
                 {
                     var isInFight = BellRef.fighter1.isInFight;
                     if (!isInFight)
@@ -54,8 +53,7 @@ namespace ArenaBell
                 }
                 else
                 {
-                    var flag2 = Takee == BellRef.fighter2.p;
-                    if (!flag2)
+                    if (Takee != BellRef.fighter2.p)
                     {
                         return;
                     }
@@ -71,8 +69,7 @@ namespace ArenaBell
             {
                 initAction = delegate
                 {
-                    var flag = BellRef.currentState == Building_Bell.State.scheduled;
-                    if (!flag)
+                    if (BellRef.currentState != Building_Bell.State.scheduled)
                     {
                         return;
                     }
@@ -90,16 +87,14 @@ namespace ArenaBell
                 {
                     var position = DropPosition;
                     pawn.carryTracker.TryDropCarriedThing(position, ThingPlaceMode.Direct, out _);
-                    var flag = !BellRef.Destroyed;
-                    if (!flag)
+                    if (BellRef.Destroyed)
                     {
                         return;
                     }
 
                     HaulFinished();
                     BellRef.PrisonerDelievered(Takee);
-                    var flag2 = BellRef.currentState != Building_Bell.State.fight;
-                    if (!flag2)
+                    if (BellRef.currentState == Building_Bell.State.fight)
                     {
                         return;
                     }

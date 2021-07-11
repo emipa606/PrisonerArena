@@ -46,16 +46,7 @@ namespace ArenaBell
         // Token: 0x06000043 RID: 67 RVA: 0x000033FC File Offset: 0x000015FC
         public override float VoluntaryJoinPriorityFor(Pawn p)
         {
-            var flag = IsInvited(p);
-            float result;
-            if (flag)
-            {
-                result = VoluntarilyJoinableLordJobJoinPriorities.SocialGathering;
-            }
-            else
-            {
-                result = 0f;
-            }
+            var result = IsInvited(p) ? VoluntarilyJoinableLordJobJoinPriorities.SocialGathering : 0f;
 
             return result;
         }
@@ -69,8 +60,7 @@ namespace ArenaBell
         // Token: 0x06000045 RID: 69 RVA: 0x00003444 File Offset: 0x00001644
         private bool IsInvited(Pawn p)
         {
-            var flag = lord.faction != null;
-            return flag && p.Faction == lord.faction;
+            return lord.faction != null && p.Faction == lord.faction;
         }
 
         // Token: 0x06000046 RID: 70 RVA: 0x00003480 File Offset: 0x00001680

@@ -7,7 +7,7 @@ namespace ArenaBell
     internal class ITab_BellManagerInterface
     {
         // Token: 0x0400002E RID: 46
-        private static readonly Listing_Standard listingStandard = new();
+        private static readonly Listing_Standard listingStandard = new Listing_Standard();
 
         // Token: 0x06000078 RID: 120 RVA: 0x00003A42 File Offset: 0x00001C42
         public static void DrawArenaTab(Rect rect, Building_Bell bell)
@@ -31,14 +31,12 @@ namespace ArenaBell
         // Token: 0x0600007B RID: 123 RVA: 0x00004598 File Offset: 0x00002798
         private static void DoTooltip(Rect rect, string tooltip)
         {
-            var flag = !tooltip.NullOrEmpty();
-            if (!flag)
+            if (tooltip.NullOrEmpty())
             {
                 return;
             }
 
-            var flag2 = Mouse.IsOver(rect);
-            if (flag2)
+            if (Mouse.IsOver(rect))
             {
                 Widgets.DrawHighlight(rect);
             }
@@ -49,11 +47,9 @@ namespace ArenaBell
         // Token: 0x0600007C RID: 124 RVA: 0x000045D4 File Offset: 0x000027D4
         private static string FighterLabel(Building_Bell bell, int index)
         {
-            var flag = index == 0;
-            if (flag)
+            if (index == 0)
             {
-                var flag2 = bell.fighter1.p != null;
-                if (flag2)
+                if (bell.fighter1.p != null)
                 {
                     if (bell.fighter1.p.AnimalOrWildMan())
                     {
@@ -64,14 +60,12 @@ namespace ArenaBell
                 }
             }
 
-            var flag3 = index == 1;
-            if (!flag3)
+            if (index != 1)
             {
                 return "Select";
             }
 
-            var flag4 = bell.fighter2.p != null;
-            if (!flag4)
+            if (bell.fighter2.p == null)
             {
                 return "Select";
             }

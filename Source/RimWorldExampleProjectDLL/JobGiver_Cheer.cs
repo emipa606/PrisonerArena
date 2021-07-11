@@ -10,7 +10,7 @@ namespace ArenaBell
         // Token: 0x0600002D RID: 45 RVA: 0x00002B34 File Offset: 0x00000D34
         protected override Job TryGiveJob(Pawn pawn)
         {
-            return new(JobDefOfArena.Cheer);
+            return new Job(JobDefOfArena.Cheer);
         }
     }
 }
