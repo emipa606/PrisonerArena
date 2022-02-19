@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <HugsLib.UpdateFeatureDef Abstract="true" Name="UpdateFeatureBase">
+  <HugsLib.UpdateFeatureDef Abstract="true" Name="PrisonerArena_UpdateFeatureBase">
     <modNameReadable>PrisonerArena</modNameReadable>
     <linkUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2022581505</linkUrl>
   </HugsLib.UpdateFeatureDef>
-  <HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+  <HugsLib.UpdateFeatureDef ParentName="PrisonerArena_UpdateFeatureBase">
     <defName>PrisonerArena_1_0_7_0</defName>
     <assemblyVersion>1.0.7.0</assemblyVersion>
     <content>Prisoners can now fight to the death. A scoreboard is also available.</content>
   </HugsLib.UpdateFeatureDef>
-  <HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+  <HugsLib.UpdateFeatureDef ParentName="PrisonerArena_UpdateFeatureBase">
     <defName>PrisonerArena_1_0_8_0</defName>
     <assemblyVersion>1.0.8.0</assemblyVersion>
     <content>Fighters can now fight for their freedom instead of glory. If they win they will be set free and will try to leave the map as soon as possible.</content>

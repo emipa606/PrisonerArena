@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
   <name>Prisoner Arena (Continued)</name>
   <packageId>Mlie.PrisonerArena</packageId>
@@ -12,7 +12,7 @@
   </supportedVersions>
   <modDependencies />
   <loadAfter />
-  <description>[img]https://i.imgur.com/WAEzk68.png[/img]
+  <description>[img]https://i.imgur.com/buuPQel.png[/img]
 Update of Gl0b on Steams mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1668624708
 
@@ -22,7 +22,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1668624708
 - Spectators stand outside of the gray area to enable construction of fences around the fighters
 - Animals can now be selected as fighters, thanks Gagaro
 
-[img]https://i.imgur.com/7Gzt3Rg.png[/img]
+[img]https://i.imgur.com/pufA0kM.png[/img]
 
 [table]
 	[tr]
@@ -31,7 +31,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1668624708
 	[/tr]
 [/table]
 	
-[img]https://i.imgur.com/NOW7jU1.png[/img]
+[img]https://i.imgur.com/Z4GOv8H.png[/img]
 
 [h1]Satisfy your barbarian needs![/h1]
 
@@ -42,11 +42,11 @@ You select two prisoners and start the fight from the arena spot menu. Any pawn 
 
 Fighters will automatically equip any weapon laying within arena radius
 
-Build it from Misc -&gt; Arena Spot
+Build it from Misc - Arena Spot
 
 Should be compatible with practically anything. 
 
-Safe to add to existing colony. Before removing the mod make sure you don&apos;t have any arena spots on your map and your prisoners aren&apos;t fighting.
+Safe to add to existing colony. Before removing the mod make sure you don't have any arena spots on your map and your prisoners aren't fighting.
 
 ---
 
@@ -58,12 +58,12 @@ Bets
 
 ---
 
-And that&apos;s about it. Report the bugs you found! Thanks for stopping by
+And that's about it. Report the bugs you found! Thanks for stopping by
 
 [h1]Updates Updates![/h1]
 2019-03-05: Fighters now can pick up guns!
 
-[img]https://i.imgur.com/Rs6T6cr.png[/img]
+[img]https://i.imgur.com/PwoNOj4.png[/img]
 [list]
 [*] See if the the error persists if you just have this mod and its requirements active.
 [*] If not, try adding your other mods until it happens again.

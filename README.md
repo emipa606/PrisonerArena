@@ -1,6 +1,6 @@
 # PrisonerArena
 
-![Image](https://i.imgur.com/WAEzk68.png)
+![Image](https://i.imgur.com/buuPQel.png)
 
 Update of Gl0b on Steams mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1668624708
@@ -11,19 +11,10 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1668624708
 - Spectators stand outside of the gray area to enable construction of fences around the fighters
 - Animals can now be selected as fighters, thanks Gagaro
 
-![Image](https://i.imgur.com/7Gzt3Rg.png)
+![Image](https://i.imgur.com/pufA0kM.png)
 
-
-[table]
-	[tr]
-		[td]https://invite.gg/Mlie]![Image](https://i.imgur.com/zdzzBrc.png)
-[/td]
-		[td]https://github.com/emipa606/PrisonerArena]![Image](https://i.imgur.com/kTkpTOE.png)
-[/td]
-	[/tr]
-[/table]
 	
-![Image](https://i.imgur.com/NOW7jU1.png)
+![Image](https://i.imgur.com/Z4GOv8H.png)
 
 
 # Satisfy your barbarian needs!
@@ -37,11 +28,11 @@ You select two prisoners and start the fight from the arena spot menu. Any pawn 
 
 Fighters will automatically equip any weapon laying within arena radius
 
-Build it from Misc -&gt; Arena Spot
+Build it from Misc - Arena Spot
 
 Should be compatible with practically anything. 
 
-Safe to add to existing colony. Before removing the mod make sure you don&apos;t have any arena spots on your map and your prisoners aren&apos;t fighting.
+Safe to add to existing colony. Before removing the mod make sure you don't have any arena spots on your map and your prisoners aren't fighting.
 
 ---
 
@@ -54,13 +45,13 @@ Bets
 
 ---
 
-And that&apos;s about it. Report the bugs you found! Thanks for stopping by
+And that's about it. Report the bugs you found! Thanks for stopping by
 
 # Updates Updates!
 
 2019-03-05: Fighters now can pick up guns!
 
-![Image](https://i.imgur.com/Rs6T6cr.png)
+![Image](https://i.imgur.com/PwoNOj4.png)
 
 
 
