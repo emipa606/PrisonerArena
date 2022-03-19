@@ -1,34 +1,30 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using RimWorld;
 using Verse;
 using Verse.AI;
 
-namespace ArenaBell
-{
-    // Token: 0x02000007 RID: 7
-    public class JobDriver_Cheer : JobDriver
-    {
-        // Token: 0x06000010 RID: 16 RVA: 0x0000231C File Offset: 0x0000051C
-        public override bool TryMakePreToilReservations(bool errorOnFailed)
-        {
-            return true;
-        }
+namespace ArenaBell;
 
-        // Token: 0x06000011 RID: 17 RVA: 0x0000232F File Offset: 0x0000052F
-        protected override IEnumerable<Toil> MakeNewToils()
+public class JobDriver_Cheer : JobDriver
+{
+    public override bool TryMakePreToilReservations(bool errorOnFailed)
+    {
+        return true;
+    }
+
+    protected override IEnumerable<Toil> MakeNewToils()
+    {
+        yield return new Toil
         {
-            yield return new Toil
+            tickAction = delegate
             {
-                tickAction = delegate
+                pawn.GainComfortFromCellIfPossible();
+                if (pawn.IsHashIntervalTick(100))
                 {
-                    pawn.GainComfortFromCellIfPossible();
-                    if (pawn.IsHashIntervalTick(100))
-                    {
-                        pawn.jobs.CheckForJobOverride();
-                    }
-                },
-                defaultCompleteMode = ToilCompleteMode.Never
-            };
-        }
+                    pawn.jobs.CheckForJobOverride();
+                }
+            },
+            defaultCompleteMode = ToilCompleteMode.Never
+        };
     }
 }

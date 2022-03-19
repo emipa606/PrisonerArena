@@ -1,58 +1,52 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using RimWorld;
 using Verse;
 using Verse.AI;
 
-namespace ArenaBell
+namespace ArenaBell;
+
+public class JobDriver_SpectateMatch : JobDriver
 {
-    // Token: 0x02000009 RID: 9
-    public class JobDriver_SpectateMatch : JobDriver
+    private const TargetIndex MySpotOrChairInd = TargetIndex.A;
+
+    private const TargetIndex WatchTargetInd = TargetIndex.B;
+
+    public override bool TryMakePreToilReservations(bool errorOnFailed)
     {
-        // Token: 0x04000006 RID: 6
-        private const TargetIndex MySpotOrChairInd = TargetIndex.A;
+        var spectator = pawn;
+        var target = job.GetTarget(TargetIndex.A);
+        var spectate = job;
+        return spectator.Reserve(target, spectate, 1, -1, null, errorOnFailed);
+    }
 
-        // Token: 0x04000007 RID: 7
-        private const TargetIndex WatchTargetInd = TargetIndex.B;
-
-        // Token: 0x0600001B RID: 27 RVA: 0x00002740 File Offset: 0x00000940
-        public override bool TryMakePreToilReservations(bool errorOnFailed)
+    protected override IEnumerable<Toil> MakeNewToils()
+    {
+        var haveChair = job.GetTarget(TargetIndex.A).HasThing;
+        if (haveChair)
         {
-            var spectator = pawn;
-            var target = job.GetTarget(TargetIndex.A);
-            var spectate = job;
-            return spectator.Reserve(target, spectate, 1, -1, null, errorOnFailed);
+            this.EndOnDespawnedOrNull(TargetIndex.A);
         }
 
-        // Token: 0x0600001C RID: 28 RVA: 0x00002779 File Offset: 0x00000979
-        protected override IEnumerable<Toil> MakeNewToils()
+        yield return Toils_Goto.GotoCell(TargetIndex.A, PathEndMode.OnCell);
+        yield return new Toil
         {
-            var haveChair = job.GetTarget(TargetIndex.A).HasThing;
-            if (haveChair)
+            tickAction = delegate
             {
-                this.EndOnDespawnedOrNull(TargetIndex.A);
-            }
-
-            yield return Toils_Goto.GotoCell(TargetIndex.A, PathEndMode.OnCell);
-            yield return new Toil
-            {
-                tickAction = delegate
+                if (((Building_Bell)pawn.mindState.duty.focus.Thing).currentState ==
+                    Building_Bell.State.fight)
                 {
-                    if (((Building_Bell) pawn.mindState.duty.focus.Thing).currentState ==
-                        Building_Bell.State.fight)
-                    {
-                        JoyUtility.JoyTickCheckEnd(pawn, JoyTickFullJoyAction.None);
-                    }
+                    JoyUtility.JoyTickCheckEnd(pawn, JoyTickFullJoyAction.None);
+                }
 
-                    pawn.rotationTracker.FaceCell(job.GetTarget(TargetIndex.B).Cell);
-                    pawn.GainComfortFromCellIfPossible();
-                    if (pawn.IsHashIntervalTick(100))
-                    {
-                        pawn.jobs.CheckForJobOverride();
-                    }
-                },
-                defaultCompleteMode = ToilCompleteMode.Never,
-                handlingFacing = true
-            };
-        }
+                pawn.rotationTracker.FaceCell(job.GetTarget(TargetIndex.B).Cell);
+                pawn.GainComfortFromCellIfPossible();
+                if (pawn.IsHashIntervalTick(100))
+                {
+                    pawn.jobs.CheckForJobOverride();
+                }
+            },
+            defaultCompleteMode = ToilCompleteMode.Never,
+            handlingFacing = true
+        };
     }
 }

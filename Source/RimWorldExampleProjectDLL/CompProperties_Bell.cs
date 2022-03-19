@@ -1,14 +1,11 @@
-﻿using Verse;
+using Verse;
 
-namespace ArenaBell
+namespace ArenaBell;
+
+public class CompProperties_Bell : CompProperties
 {
-    // Token: 0x02000003 RID: 3
-    public class CompProperties_Bell : CompProperties
+    public CompProperties_Bell()
     {
-        // Token: 0x0600000C RID: 12 RVA: 0x000022C7 File Offset: 0x000004C7
-        public CompProperties_Bell()
-        {
-            compClass = typeof(CompBell);
-        }
+        compClass = typeof(CompBell);
     }
 }

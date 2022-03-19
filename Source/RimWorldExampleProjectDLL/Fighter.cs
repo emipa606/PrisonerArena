@@ -1,14 +1,10 @@
-﻿using Verse;
+using Verse;
 
-namespace ArenaBell
+namespace ArenaBell;
+
+public class Fighter
 {
-    // Token: 0x02000015 RID: 21
-    public class Fighter
-    {
-        // Token: 0x04000020 RID: 32
-        public bool isInFight = false;
+    public bool isInFight = false;
 
-        // Token: 0x0400001F RID: 31
-        public Pawn p;
-    }
+    public Pawn p;
 }
