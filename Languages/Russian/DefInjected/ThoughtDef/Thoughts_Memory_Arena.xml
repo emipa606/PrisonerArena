@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <ArenaWinner.stages.0.label>чемпион</ArenaWinner.stages.0.label>
+  <ArenaWinner.stages.0.description>Я выиграл битву на арене!</ArenaWinner.stages.0.description>
+  <ArenaLoser.stages.0.label>битва проиграна</ArenaLoser.stages.0.label>
+  <ArenaLoser.stages.0.description>Я был вынужден участвовать в битве и проиграл. Ай...</ArenaLoser.stages.0.description>
+</LanguageData>

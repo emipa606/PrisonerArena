@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Item hauling -->
+  <HaulingPrisoner.reportString>готовит заключенных к бою.</HaulingPrisoner.reportString>
+  <SpectateFightingMatch.reportString>наблюдает за боевым матчем.</SpectateFightingMatch.reportString>
+  <Cheer.reportString>болеет за бойца.</Cheer.reportString>
+</LanguageData>

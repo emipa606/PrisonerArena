@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Special mental states not from mental breaks -->
+  <Fighter.label>бои на арене</Fighter.label>
+  <Fighter.beginLetter>{0} сражается на арене. Удалите это позже</Fighter.beginLetter>
+  <Fighter.beginLetterLabel>Начало битвы</Fighter.beginLetterLabel>
+  <Fighter.baseInspectLine>В бою</Fighter.baseInspectLine>
+</LanguageData>

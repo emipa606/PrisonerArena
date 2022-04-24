@@ -1,5 +1,8 @@
 # Changelog for PrisonerArena
 
+1.3.3 - Russian translation added, thank you Amycolis!
+
+
 1.3.2 - Texture error should be fixed for cheering pawns
 
 
