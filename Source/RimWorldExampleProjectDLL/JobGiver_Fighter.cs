@@ -176,7 +176,7 @@ public class JobGiver_Fighter : JobGiver_AIFightEnemy
         return num <= rect.maxX && num >= rect.minX && num2 <= rect.maxZ && num2 >= rect.minZ;
     }
 
-    protected override bool TryFindShootingPosition(Pawn pawn, out IntVec3 dest)
+    protected override bool TryFindShootingPosition(Pawn pawn, out IntVec3 dest, Verb verbToUse = null)
     {
         var enemyTarget = pawn.mindState.enemyTarget;
         var allowManualCastWeapons = !pawn.IsColonist;

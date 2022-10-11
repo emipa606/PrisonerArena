@@ -69,6 +69,10 @@ public class Building_Bell : Building, IBillGiver
         throw new NotImplementedException();
     }
 
+    public void Notify_BillDeleted(Bill bill)
+    {
+    }
+
 
     public override void ExposeData()
     {

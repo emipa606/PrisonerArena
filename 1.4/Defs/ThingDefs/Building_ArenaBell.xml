@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ThingDef ParentName="BuildingBase" Abstract="True" Name="Abstract_ArenaBell">
+    <description>An area in which the fights will be held. Prisoners will fight within the white zones and the spectators would stay by the grey zone.</description>
+    <thingClass>ArenaBell.Building_Bell</thingClass>
+    <graphicData>
+      <texPath>Things/Building/ArenaSpot</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <!-- <designatorDropdown>ArenaSpotsGroup</designatorDropdown> -->
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <statBases>
+      <WorkToBuild>0</WorkToBuild>
+    </statBases>
+    <comps>
+      <li Class="ArenaBell.CompProperties_Bell" />
+    </comps>
+    <placeWorkers>
+      <li>ArenaBell.PlaceWorker_ArenaRadius</li>
+    </placeWorkers>
+    <useHitPoints>false</useHitPoints>
+    <scatterableOnMapGen>false</scatterableOnMapGen>
+    <designationCategory>Misc</designationCategory>
+    <passability>Standable</passability>
+    <inspectorTabs>
+      <li>ArenaBell.ITab_BellManager</li>
+    </inspectorTabs>
+    <building>
+      <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+      <sowTag>SupportPlantsOnly</sowTag>
+      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+      <ai_chillDestination>false</ai_chillDestination>
+    </building>
+    <designationHotKey>Misc12</designationHotKey>
+  </ThingDef>
+  <ThingDef ParentName="Abstract_ArenaBell">
+    <defName>Building_ArenaBell</defName>
+    <label>Arena Spot</label>
+    <size>(1,1)</size>
+  </ThingDef>
+  <!-- <ThingDef ParentName="Abstract_ArenaBell"> -->
+  <!-- <defName>Building_ArenaBell_Wide</defName> -->
+  <!-- <label>Arena Spot (Wide)</label> -->
+  <!-- <graphicData> -->
+  <!-- <drawSize>(2,1)</drawSize> -->
+  <!-- </graphicData> -->
+  <!-- <size>(2,1)</size> -->
+  <!-- </ThingDef> -->
+</Defs>

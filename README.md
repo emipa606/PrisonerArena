@@ -10,6 +10,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1668624708
 - Winners can now be released as reward instead of getting glory
 - Spectators stand outside of the gray area to enable construction of fences around the fighters
 - Animals can now be selected as fighters, thanks Gagaro
+- Russian translation added, via Amycolis
 
 ![Image](https://i.imgur.com/pufA0kM.png)
 
@@ -61,6 +62,7 @@ And that's about it. Report the bugs you found! Thanks for stopping by
 -  For best support, please use the Discord-channel for error-reporting.
 -  Do not report errors by making a discussion-thread, I get no notification of that.
 -  If you have the solution for a problem, please post it to the GitHub repository.
+
 
 
 
