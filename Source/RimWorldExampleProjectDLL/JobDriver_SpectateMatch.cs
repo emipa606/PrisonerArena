@@ -14,31 +14,31 @@ public class JobDriver_SpectateMatch : JobDriver
     public override bool TryMakePreToilReservations(bool errorOnFailed)
     {
         var spectator = pawn;
-        var target = job.GetTarget(TargetIndex.A);
+        var target = job.GetTarget(MySpotOrChairInd);
         var spectate = job;
         return spectator.Reserve(target, spectate, 1, -1, null, errorOnFailed);
     }
 
     protected override IEnumerable<Toil> MakeNewToils()
     {
-        var haveChair = job.GetTarget(TargetIndex.A).HasThing;
+        var haveChair = job.GetTarget(MySpotOrChairInd).HasThing;
         if (haveChair)
         {
-            this.EndOnDespawnedOrNull(TargetIndex.A);
+            this.EndOnDespawnedOrNull(MySpotOrChairInd);
         }
 
-        yield return Toils_Goto.GotoCell(TargetIndex.A, PathEndMode.OnCell);
+        yield return Toils_Goto.GotoCell(MySpotOrChairInd, PathEndMode.OnCell);
         yield return new Toil
         {
             tickAction = delegate
             {
-                if (((Building_Bell)pawn.mindState.duty.focus.Thing).currentState ==
-                    Building_Bell.State.fight)
+                var thing = pawn.mindState?.duty?.focus.Thing;
+                if (thing is Building_Bell { currentState: Building_Bell.State.fight })
                 {
                     JoyUtility.JoyTickCheckEnd(pawn, JoyTickFullJoyAction.None);
                 }
 
-                pawn.rotationTracker.FaceCell(job.GetTarget(TargetIndex.B).Cell);
+                pawn.rotationTracker?.FaceCell(job.GetTarget(WatchTargetInd).Cell);
                 pawn.GainComfortFromCellIfPossible();
                 if (pawn.IsHashIntervalTick(100))
                 {

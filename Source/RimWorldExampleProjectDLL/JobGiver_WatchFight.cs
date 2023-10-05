@@ -8,6 +8,11 @@ public class JobGiver_WatchFight : JobGiver_SpectateDutySpectateRect
 {
     protected override Job TryGiveJob(Pawn pawn)
     {
+        if (pawn.DevelopmentalStage != DevelopmentalStage.Adult)
+        {
+            return null;
+        }
+
         var duty = pawn.mindState.duty;
         if (duty == null)
         {
