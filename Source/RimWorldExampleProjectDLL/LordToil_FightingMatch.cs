@@ -29,11 +29,19 @@ public class LordToil_FightingMatch : LordToil
     {
         foreach (var ownedPawn in lord.ownedPawns)
         {
-            ownedPawn.mindState.duty = new PawnDuty(DutyDefOfArena.SpectateFight)
+            var duty = new PawnDuty(DutyDefOfArena.SpectateFight)
             {
                 spectateRect = CalculateSpectateRect(),
                 focus = bellRef
             };
+
+            if (bellRef.GetComp<CompBell>().useCircle)
+            {
+                duty.spectateDistance = new IntRange((int)bellRef.GetComp<CompBell>().radius + 2,
+                    (int)(bellRef.GetComp<CompBell>().radius + 3));
+            }
+
+            ownedPawn.mindState.duty = duty;
         }
     }
 

@@ -1,4 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <TabManage>Organize</TabManage>
+  <PA.NoFighters>No fighters available.</PA.NoFighters>
+  <PA.Glory>For Glory!</PA.Glory>
+  <PA.Freedom>For Freedom!</PA.Freedom>
+  <PA.NoKilling>No killing!</PA.NoKilling>
+  <PA.Death>To the Death!</PA.Death>
+  <PA.NoBrawl>No brawl today laddies. {0}</PA.NoBrawl>
+  <PA.BrawlPause>The brawl was suspended.</PA.BrawlPause>
+  <PA.Winner>The winner is {0}!</PA.Winner>
+  <PA.WonFreedom>{0} has won their freedom and will try to leave this place as soon as possible.</PA.WonFreedom>
+  <PA.NoSpot>Could not find a suitable spot for releasing the prisoner</PA.NoSpot>
+  <PA.WillRelease>{0} will release {1}</PA.WillRelease>
+  <PA.NoWarden>Not a warden in sight to give the winner their freedom, you need someone capable of releasing prisoners</PA.NoWarden>
+  <PA.NoWardenToFight>Not a lad to bring the poor guy to the arena, you need someone capable of watching prisoners</PA.NoWardenToFight>
+  <PA.NoBell>Someone thrashed the bell!</PA.NoBell>
+  <PA.FightStarting>The fight is starting</PA.FightStarting>
+  <PA.CurrentState>Current state: {0}</PA.CurrentState>
+  <PA.Select>Select</PA.Select>
+  <PA.SelectTwo>Hey! Select two of them</PA.SelectTwo>
+  <PA.SelectDifferent>Fighter can't be fighting themselves, select two different ones</PA.SelectDifferent>
+  <PA.PlannedBrawl>Brawl is already being planned</PA.PlannedBrawl>
+  <PA.ActiveBrawl>Brawl is already in progress</PA.ActiveBrawl>
+  <PA.CantMove>{0} can't move and won't be a good fighter.</PA.CantMove>
+  <PA.IncreaseRadius>Increase radius</PA.IncreaseRadius>
+  <PA.IncreaseRadiusTT>Increase arena radius</PA.IncreaseRadiusTT>
+  <PA.DecreaseRadius>Decrease radius</PA.DecreaseRadius>
+  <PA.DecreaseRadiusTT>Decrease arena radius</PA.DecreaseRadiusTT>
+  <PA.SwitchToCircle>Switch to circle</PA.SwitchToCircle>
+  <PA.SwitchToCircleTT>Switch to a circle layout for the area</PA.SwitchToCircleTT>
+  <PA.SwitchToSquare>Switch to square</PA.SwitchToSquare>
+  <PA.SwitchToSquareTT>Switch to a square layout for the area</PA.SwitchToSquareTT>
 </LanguageData>

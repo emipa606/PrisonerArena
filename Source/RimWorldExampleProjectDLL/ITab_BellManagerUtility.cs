@@ -6,43 +6,40 @@ namespace ArenaBell;
 
 internal class ITab_BellManagerUtility
 {
-    private static float buttonSize = 40f;
-
-    private static float spacingOffset = 15f;
-
-    private static float columnSize = 245f;
-
     public static string FighterLabel(int index, Building_Bell bell)
     {
         string result;
         if (bell.fighter1.p == null)
         {
-            result = "Select";
+            result = "PA.Select".Translate();
         }
         else
         {
-            if (index == 0)
+            switch (index)
             {
-                result = bell.fighter1.p.Name.ToStringShort;
-                if (bell.fighter1.p.AnimalOrWildMan())
+                case 0:
                 {
-                    result += $" ({bell.fighter1.p.def.race.AnyPawnKind.label})";
+                    result = bell.fighter1.p.Name.ToStringShort;
+                    if (bell.fighter1.p.AnimalOrWildMan())
+                    {
+                        result += $" ({bell.fighter1.p.def.race.AnyPawnKind.label})";
+                    }
+
+                    break;
                 }
-            }
-            else
-            {
-                if (index == 1)
+                case 1:
                 {
                     result = bell.fighter2.p.Name.ToStringShort;
                     if (bell.fighter2.p.AnimalOrWildMan())
                     {
                         result += $" ({bell.fighter2.p.def.race.AnyPawnKind.label})";
                     }
+
+                    break;
                 }
-                else
-                {
+                default:
                     result = "error";
-                }
+                    break;
             }
         }
 
@@ -63,8 +60,8 @@ internal class ITab_BellManagerUtility
             bell.toDeath = false;
         }
 
-        list.Add(new FloatMenuOption("No killing!", DownedAction));
-        list.Add(new FloatMenuOption("To the Death!", DeathAction));
+        list.Add(new FloatMenuOption("PA.NoKilling".Translate(), DownedAction));
+        list.Add(new FloatMenuOption("PA.Death".Translate(), DeathAction));
         Find.WindowStack.Add(new FloatMenu(list));
     }
 
@@ -82,8 +79,8 @@ internal class ITab_BellManagerUtility
             bell.winnerGetsFreedom = true;
         }
 
-        list.Add(new FloatMenuOption("For Glory!", GloryAction));
-        list.Add(new FloatMenuOption("For Freedom!", FreedomAction));
+        list.Add(new FloatMenuOption("PA.Glory".Translate(), GloryAction));
+        list.Add(new FloatMenuOption("PA.Freedom".Translate(), FreedomAction));
         Find.WindowStack.Add(new FloatMenu(list));
     }
 
@@ -94,7 +91,7 @@ internal class ITab_BellManagerUtility
         if (bell.Map.mapPawns.PrisonersOfColonySpawned == null ||
             bell.Map.mapPawns.PrisonersOfColonySpawnedCount <= 0)
         {
-            Messages.Message("No prisoners available.", MessageTypeDefOf.RejectInput);
+            Messages.Message("PA.NoFighters".Translate(), MessageTypeDefOf.RejectInput);
         }
         else
         {
@@ -105,7 +102,7 @@ internal class ITab_BellManagerUtility
 
             foreach (var candidate in bell.Map.mapPawns.AllPawns)
             {
-                if (candidate.Faction != null && candidate.Faction.IsPlayer && candidate.RaceProps.Animal)
+                if (candidate.Faction is { IsPlayer: true } && candidate.RaceProps.Animal)
                 {
                     actorList.Add(candidate);
                 }
@@ -113,7 +110,7 @@ internal class ITab_BellManagerUtility
 
             if (actorList.Count <= 0)
             {
-                Messages.Message("No prisoners available.", MessageTypeDefOf.RejectInput);
+                Messages.Message("PA.NoFighters".Translate(), MessageTypeDefOf.RejectInput);
                 return;
             }
 
@@ -130,7 +127,7 @@ internal class ITab_BellManagerUtility
                     }
                     else
                     {
-                        Messages.Message(localCol.Name.ToStringShort + " can't move and won't be a good fighter.",
+                        Messages.Message("PA.CantMove".Translate(localCol.Name.ToStringShort),
                             MessageTypeDefOf.RejectInput);
                     }
                 }
@@ -156,7 +153,7 @@ internal class ITab_BellManagerUtility
         if (bell.Map.mapPawns.PrisonersOfColonySpawned == null ||
             bell.Map.mapPawns.PrisonersOfColonySpawnedCount <= 0)
         {
-            Messages.Message("No prisoners available.", MessageTypeDefOf.RejectInput);
+            Messages.Message("PA.NoFighters".Translate(), MessageTypeDefOf.RejectInput);
         }
         else
         {
@@ -167,7 +164,7 @@ internal class ITab_BellManagerUtility
 
             foreach (var candidate in bell.Map.mapPawns.AllPawns)
             {
-                if (candidate.Faction != null && candidate.Faction.IsPlayer && candidate.RaceProps.Animal)
+                if (candidate.Faction is { IsPlayer: true } && candidate.RaceProps.Animal)
                 {
                     actorList.Add(candidate);
                 }
@@ -175,7 +172,7 @@ internal class ITab_BellManagerUtility
 
             if (actorList.Count <= 0)
             {
-                Messages.Message("No prisoners available.", MessageTypeDefOf.RejectInput);
+                Messages.Message("PA.NoFighters".Translate(), MessageTypeDefOf.RejectInput);
                 return;
             }
 
@@ -192,7 +189,7 @@ internal class ITab_BellManagerUtility
                     }
                     else
                     {
-                        Messages.Message(localCol.Name.ToStringShort + " can't move and won't be a good fighter.",
+                        Messages.Message("PA.CantMove".Translate(localCol.Name.ToStringShort),
                             MessageTypeDefOf.RejectInput);
                     }
                 }

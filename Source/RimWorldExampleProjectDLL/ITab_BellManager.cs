@@ -136,7 +136,7 @@ internal class ITab_BellManager : ITab
                 widthOffset = GUI.skin.label.CalcSize(new GUIContent(currentWinner)).x / 2f;
                 var row = new Rect((rect.xMax / 2f) - widthOffset, heightOffset, rect.xMax, lineHeight);
                 Widgets.Label(row, currentWinner);
-                heightOffset = heightOffset + lineHeight;
+                heightOffset += lineHeight;
             }
         }
 
@@ -303,7 +303,7 @@ internal class ITab_BellManager : ITab
 
         if (index != 1)
         {
-            return "Select";
+            return "PA.Select".Translate();
         }
 
         if (bell.fighter2.p != null)
@@ -311,7 +311,7 @@ internal class ITab_BellManager : ITab
             return bell.fighter2.p.Name.ToStringShort;
         }
 
-        return "Select";
+        return "PA.Select".Translate();
     }
 
     private enum ArenaCardTab : byte

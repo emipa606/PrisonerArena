@@ -44,30 +44,24 @@ internal class ITab_BellManagerInterface
         {
             if (bell.fighter1.p != null)
             {
-                if (bell.fighter1.p.AnimalOrWildMan())
-                {
-                    return $"{bell.fighter1.p.Name.ToStringShort} ({bell.fighter1.p.def.race.AnyPawnKind.label})";
-                }
-
-                return bell.fighter1.p.Name.ToStringShort;
+                return bell.fighter1.p.AnimalOrWildMan()
+                    ? $"{bell.fighter1.p.Name.ToStringShort} ({bell.fighter1.p.def.race.AnyPawnKind.label})"
+                    : bell.fighter1.p.Name.ToStringShort;
             }
         }
 
         if (index != 1)
         {
-            return "Select";
+            return "PA.Select".Translate();
         }
 
         if (bell.fighter2.p == null)
         {
-            return "Select";
+            return "PA.Select".Translate();
         }
 
-        if (bell.fighter2.p.AnimalOrWildMan())
-        {
-            return $"{bell.fighter2.p.Name.ToStringShort} ({bell.fighter2.p.def.race.AnyPawnKind.label})";
-        }
-
-        return bell.fighter2.p.Name.ToStringShort;
+        return bell.fighter2.p.AnimalOrWildMan()
+            ? $"{bell.fighter2.p.Name.ToStringShort} ({bell.fighter2.p.def.race.AnyPawnKind.label})"
+            : bell.fighter2.p.Name.ToStringShort;
     }
 }

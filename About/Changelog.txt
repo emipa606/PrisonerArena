@@ -1,5 +1,10 @@
 # Changelog for PrisonerArena
 
+1.4.2 - Added option to have circular arenas
+Opened all strings for translation.
+Used DeepL to update translations for ChineseSimplified, French, German, Russian
+
+
 1.4.1 - Mod updated for 1.4 and passed autotests
 
 

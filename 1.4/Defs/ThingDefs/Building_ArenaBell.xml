@@ -30,6 +30,7 @@
       <sowTag>SupportPlantsOnly</sowTag>
       <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
       <ai_chillDestination>false</ai_chillDestination>
+      <ai_neverTrashThis>true</ai_neverTrashThis>
     </building>
     <designationHotKey>Misc12</designationHotKey>
   </ThingDef>

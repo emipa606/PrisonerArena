@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RimWorld;
-using UnityEngine;
 using Verse;
 using Verse.AI;
 using Verse.AI.Group;
@@ -25,21 +24,13 @@ public class Building_Bell : Building, IBillGiver
 
     public State currentState = State.rest;
 
-    private bool destroyedFlag;
-
     public Fighter fighter1 = new Fighter();
 
     public Fighter fighter2 = new Fighter();
 
     private Area fightingArea_int;
 
-    private bool firstReadyDebug = false;
-
-    private bool secondReadyDebug = false;
-
     public bool toDeath;
-
-    protected int wickTicksLeft = 0;
 
     public bool winnerGetsFreedom;
 
@@ -87,68 +78,56 @@ public class Building_Bell : Building, IBillGiver
         Scribe_Collections.Look(ref winners, "winners", LookMode.Value);
     }
 
-    public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
-    {
-        destroyedFlag = true;
-        base.Destroy(mode);
-    }
-
     public void brawl()
     {
         if (IsBusy())
         {
             var state = currentState;
-            if (state == State.preparation)
+            switch (state)
             {
-                Messages.Message("Brawl is already being held", MessageTypeDefOf.RejectInput);
-                return;
-            }
-
-            if (state == State.fight)
-            {
-                Messages.Message("Brawl is already in the process", MessageTypeDefOf.RejectInput);
-                return;
+                case State.preparation:
+                    Messages.Message("PA.PlannedBrawl".Translate(), MessageTypeDefOf.RejectInput);
+                    return;
+                case State.fight:
+                    Messages.Message("PA.ActiveBrawl".Translate(), MessageTypeDefOf.RejectInput);
+                    return;
             }
         }
 
         if (fighter1.p == null || fighter2.p == null)
         {
-            Messages.Message("Hey! Select two of them", MessageTypeDefOf.RejectInput);
+            Messages.Message("PA.SelectTwo".Translate(), MessageTypeDefOf.RejectInput);
+            return;
         }
-        else
+
+        if (fighter1.p == fighter2.p)
         {
-            if (fighter1.p == fighter2.p)
-            {
-                Messages.Message("Fighter can't be fighting themselves, select two different ones",
-                    MessageTypeDefOf.RejectInput);
-            }
-            else
-            {
-                if (!fightCapable(fighter1.p))
-                {
-                    Messages.Message(fighter1.p.Name.ToStringShort + " can't move and won't be a good fighter.",
-                        MessageTypeDefOf.RejectInput);
-                }
-                else
-                {
-                    if (!fightCapable(fighter2.p))
-                    {
-                        Messages.Message(fighter2.p.Name.ToStringShort + " can't move and won't be a good fighter.",
-                            MessageTypeDefOf.RejectInput);
-                    }
-                    else
-                    {
-                        currentState = State.scheduled;
-                    }
-                }
-            }
+            Messages.Message("PA.SelectDifferent".Translate(),
+                MessageTypeDefOf.RejectInput);
+            return;
         }
+
+        if (!fightCapable(fighter1.p))
+        {
+            Messages.Message("PA.CantMove".Translate(fighter1.p.Name.ToStringShort),
+                MessageTypeDefOf.RejectInput);
+            return;
+        }
+
+        if (!fightCapable(fighter2.p))
+        {
+            Messages.Message("PA.CantMove".Translate(fighter2.p.Name.ToStringShort),
+                MessageTypeDefOf.RejectInput);
+            return;
+        }
+
+        currentState = State.scheduled;
     }
 
     public void TryCancelBrawl(string reason = "")
     {
         currentState = State.rest;
-        Messages.Message("No brawl today laddies. " + reason, MessageTypeDefOf.NegativeEvent);
+        Messages.Message("PA.NoBrawl".Translate(reason), MessageTypeDefOf.NegativeEvent);
         fighter1 = new Fighter();
         fighter2 = new Fighter();
     }
@@ -161,9 +140,8 @@ public class Building_Bell : Building, IBillGiver
         var mentalStateHandler = f.p.mindState.mentalStateHandler;
         var ArenaFighting = MentalStateDefOfArena.Fighter;
         var unused = f.p;
-        var stateDef = ArenaFighting;
         var unused1 = getOtherFighter(f).p;
-        mentalStateHandler.TryStartMentalState(stateDef, "", false, false, null, true);
+        mentalStateHandler.TryStartMentalState(ArenaFighting, "", false, false, null, true);
         if (f.p.MentalState is not MentalState_Fighter mentalState)
         {
             return;
@@ -180,13 +158,13 @@ public class Building_Bell : Building, IBillGiver
         Pawn loser = null;
         if (suspended)
         {
-            Messages.Message("The brawl was suspended.", MessageTypeDefOf.RejectInput);
+            Messages.Message("PA.BrawlPause".Translate(), MessageTypeDefOf.RejectInput);
         }
         else
         {
             if (pawn != null)
             {
-                Messages.Message("The winner is " + pawn.Name.ToStringShort + "!", MessageTypeDefOf.RejectInput);
+                Messages.Message("PA.Winner".Translate(pawn.Name.ToStringShort), MessageTypeDefOf.RejectInput);
                 if (pawn == fighter1.p)
                 {
                     winner = fighter1.p;
@@ -203,12 +181,10 @@ public class Building_Bell : Building, IBillGiver
 
                 if (winnerGetsFreedom)
                 {
-                    if (winner != null && winner.IsPrisonerOfColony)
+                    if (winner is { IsPrisonerOfColony: true })
                     {
                         GenGuest.PrisonerRelease(winner);
-                        Messages.Message(
-                            pawn.NameFullColored +
-                            " has won their freedom and will try to leave this place as soon as possible.",
+                        Messages.Message("PA.WonFreedom".Translate(pawn.NameFullColored),
                             MessageTypeDefOf.PositiveEvent);
                         //TryReleasePrisoner(winner);
                     }
@@ -219,7 +195,7 @@ public class Building_Bell : Building, IBillGiver
                 }
             }
 
-            if (loser != null && !loser.Dead)
+            if (loser is { Dead: false })
             {
                 loser.needs.mood?.thoughts.memories.TryGainMemory(ThoughtDefOfArena.ArenaLoser);
             }
@@ -262,21 +238,18 @@ public class Building_Bell : Building, IBillGiver
         {
             if (!RCellFinder.TryFindPrisonerReleaseCell(prisoner, warden, out var c))
             {
-                Messages.Message("Could not find a suitable spot for releasing the prisoner",
-                    MessageTypeDefOf.RejectInput);
+                Messages.Message("PA.NoSpot".Translate(), MessageTypeDefOf.RejectInput);
                 return;
             }
 
-            Log.Message($"{warden.NameShortColored} will release {prisoner.NameShortColored}");
+            Log.Message("PA.WillRelease".Translate(warden.NameShortColored, prisoner.NameShortColored));
             var job = new Job(JobDefOf.ReleasePrisoner, prisoner, c);
             warden.jobs.EndCurrentJob(JobCondition.InterruptForced, false, false);
-            Log.Message($"{warden.jobs.TryTakeOrderedJob(job)} result");
+            warden.jobs.TryTakeOrderedJob(job);
         }
         else
         {
-            Messages.Message(
-                "Not a warden in sight to give the winner their freedom, you need someone capable of releasing prisoners",
-                MessageTypeDefOf.RejectInput);
+            Messages.Message("PA.NoWarden".Translate(), MessageTypeDefOf.RejectInput);
         }
     }
 
@@ -307,7 +280,7 @@ public class Building_Bell : Building, IBillGiver
         else
         {
             Messages.Message(
-                "Not a lad to bring the poor guy to the arena, you need someone capable of watching prisoners",
+                "PA.NoWardenToFight".Translate(),
                 MessageTypeDefOf.RejectInput);
         }
     }
@@ -316,7 +289,7 @@ public class Building_Bell : Building, IBillGiver
     {
         if (Destroyed || !Spawned)
         {
-            TryCancelBrawl("Someone thrashed the bell!");
+            TryCancelBrawl("PA.NoBell".Translate());
         }
         else
         {
@@ -334,7 +307,7 @@ public class Building_Bell : Building, IBillGiver
             return;
         }
 
-        Messages.Message("The fight is starting", MessageTypeDefOf.RejectInput);
+        Messages.Message("PA.FightStarting".Translate(), MessageTypeDefOf.RejectInput);
         currentState = State.fight;
         startFightingState(fighter1);
         startFightingState(fighter2);
@@ -349,8 +322,7 @@ public class Building_Bell : Building, IBillGiver
     {
         var stringBuilder = new StringBuilder();
         stringBuilder.Append(base.GetInspectString());
-        stringBuilder.Append("Current state: ");
-        stringBuilder.Append(currentState.ToString());
+        stringBuilder.Append("PA.CurrentState".Translate(currentState.ToString()));
         return stringBuilder.ToString();
     }
 
@@ -388,48 +360,10 @@ public class Building_Bell : Building, IBillGiver
     public IntVec3 getFighterStandPoint()
     {
         var comp = GetComp<CompBell>();
-        var unused = CellRect.CenteredOn(Position, 1).ExpandedBy(Mathf.RoundToInt(comp.radius - 1f)).Corners;
-
         var isInFight = fighter1.isInFight;
-        IntVec3 result;
-        var radius = 1f;
+        var orderedCells = comp.ValidCells.OrderBy(vec3 => vec3.x + vec3.z);
 
-        if (isInFight)
-        {
-            while (comp.radius - radius > 0)
-            {
-                result = CellRect.CenteredOn(Position, 1).ExpandedBy(Mathf.RoundToInt(comp.radius - radius)).Corners
-                    .First();
-                if (result.GetRoom(Map) == Position.GetRoom(Map))
-                {
-                    return result;
-                }
-
-                radius = radius + 1f;
-            }
-        }
-        else
-        {
-            while (comp.radius - radius > 0)
-            {
-                result = CellRect.CenteredOn(Position, 1).ExpandedBy(Mathf.RoundToInt(comp.radius - radius)).Corners
-                    .Last();
-                if (result.GetRoom(Map) == Position.GetRoom(Map))
-                {
-                    return result;
-                }
-
-                radius = radius + 1f;
-            }
-        }
-
-        return Position;
-    }
-
-    private IntVec3 getCorner(bool nearest)
-    {
-        var result = nearest ? fightingArea_int.ActiveCells.First() : fightingArea_int.ActiveCells.Last();
-        return result;
+        return isInFight ? orderedCells.First() : orderedCells.Last();
     }
 
     public Fighter getFighter(Pawn p)

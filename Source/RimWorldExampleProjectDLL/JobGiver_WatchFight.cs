@@ -9,34 +9,46 @@ public class JobGiver_WatchFight : JobGiver_SpectateDutySpectateRect
     protected override Job TryGiveJob(Pawn pawn)
     {
         var duty = pawn.mindState.duty;
-        Job result;
         if (duty == null)
         {
-            result = null;
+            return null;
+        }
+
+        var bellcomp = ((Building_Bell)duty.focus)?.TryGetComp<CompBell>();
+        if (bellcomp == null)
+        {
+            return null;
+        }
+
+        bool foundCell;
+        IntVec3 cellFound;
+        if (bellcomp.useCircle)
+        {
+            foundCell = SpectatorCellFinder.TryFindCircleSpectatorCellFor(pawn,
+                CellRect.CenteredOn(((Building_Bell)duty.focus).Position, 0),
+                duty.spectateDistance.min,
+                duty.spectateDistance.max, pawn.Map, out cellFound);
         }
         else
         {
-            if (!SpectatorCellFinder.TryFindSpectatorCellFor(pawn, duty.spectateRect, pawn.Map, out var cell,
-                    duty.spectateRectAllowedSides))
-            {
-                result = null;
-            }
-            else
-            {
-                var centerCell = duty.spectateRect.CenterCell;
-                var edifice = cell.GetEdifice(pawn.Map);
-                if (edifice != null && edifice.def.category == ThingCategory.Building &&
-                    edifice.def.building.isSittable && pawn.CanReserve(edifice))
-                {
-                    result = new Job(JobDefOfArena.SpectateFightingMatch, edifice, centerCell);
-                }
-                else
-                {
-                    result = new Job(JobDefOfArena.SpectateFightingMatch, cell, centerCell);
-                }
-            }
+            foundCell = SpectatorCellFinder.TryFindSpectatorCellFor(pawn, duty.spectateRect, pawn.Map,
+                out cellFound,
+                duty.spectateRectAllowedSides);
         }
 
-        return result;
+        if (!foundCell)
+        {
+            return null;
+        }
+
+        var centerCell = duty.spectateRect.CenterCell;
+        var edifice = cellFound.GetEdifice(pawn.Map);
+        if (edifice != null && edifice.def.category == ThingCategory.Building &&
+            edifice.def.building.isSittable && pawn.CanReserve(edifice))
+        {
+            return new Job(JobDefOfArena.SpectateFightingMatch, edifice, centerCell);
+        }
+
+        return new Job(JobDefOfArena.SpectateFightingMatch, cellFound, centerCell);
     }
 }
