@@ -1,5 +1,8 @@
 # Changelog for PrisonerArena
 
+1.5.0 - Mod updated for 1.5 and passed autotests
+
+
 1.4.3 - Children will no longer spectate matches as they cannot gain joy from it
 
 

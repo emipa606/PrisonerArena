@@ -48,7 +48,14 @@ internal class ITab_BellManagerUtility
 
     public static void OpenFightTypeMenu(Building_Bell bell)
     {
-        var list = new List<FloatMenuOption>();
+        var list = new List<FloatMenuOption>
+        {
+            new FloatMenuOption("PA.NoKilling".Translate(), DownedAction),
+            new FloatMenuOption("PA.Death".Translate(), DeathAction)
+        };
+
+        Find.WindowStack.Add(new FloatMenu(list));
+        return;
 
         void DeathAction()
         {
@@ -59,15 +66,18 @@ internal class ITab_BellManagerUtility
         {
             bell.toDeath = false;
         }
-
-        list.Add(new FloatMenuOption("PA.NoKilling".Translate(), DownedAction));
-        list.Add(new FloatMenuOption("PA.Death".Translate(), DeathAction));
-        Find.WindowStack.Add(new FloatMenu(list));
     }
 
     public static void OpenRewardTypeMenu(Building_Bell bell)
     {
-        var list = new List<FloatMenuOption>();
+        var list = new List<FloatMenuOption>
+        {
+            new FloatMenuOption("PA.Glory".Translate(), GloryAction),
+            new FloatMenuOption("PA.Freedom".Translate(), FreedomAction)
+        };
+
+        Find.WindowStack.Add(new FloatMenu(list));
+        return;
 
         void GloryAction()
         {
@@ -78,10 +88,6 @@ internal class ITab_BellManagerUtility
         {
             bell.winnerGetsFreedom = true;
         }
-
-        list.Add(new FloatMenuOption("PA.Glory".Translate(), GloryAction));
-        list.Add(new FloatMenuOption("PA.Freedom".Translate(), FreedomAction));
-        Find.WindowStack.Add(new FloatMenu(list));
     }
 
     public static void OpenActor1SelectMenu(Building_Bell bell)
@@ -119,6 +125,16 @@ internal class ITab_BellManagerUtility
             {
                 var localCol = actor;
 
+                var label = localCol.LabelShort;
+
+                if (localCol.AnimalOrWildMan())
+                {
+                    label += $" ({localCol.def.race.AnyPawnKind.label})";
+                }
+
+                list.Add(new FloatMenuOption(label, Action));
+                continue;
+
                 void Action()
                 {
                     if (localCol.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
@@ -131,15 +147,6 @@ internal class ITab_BellManagerUtility
                             MessageTypeDefOf.RejectInput);
                     }
                 }
-
-                var label = localCol.LabelShort;
-
-                if (localCol.AnimalOrWildMan())
-                {
-                    label += $" ({localCol.def.race.AnyPawnKind.label})";
-                }
-
-                list.Add(new FloatMenuOption(label, Action));
             }
 
             Find.WindowStack.Add(new FloatMenu(list));
@@ -181,6 +188,16 @@ internal class ITab_BellManagerUtility
             {
                 var localCol = actor;
 
+                var label = localCol.LabelShort;
+
+                if (localCol.AnimalOrWildMan())
+                {
+                    label += $" ({localCol.def.race.AnyPawnKind.label})";
+                }
+
+                list.Add(new FloatMenuOption(label, Action));
+                continue;
+
                 void Action()
                 {
                     if (localCol.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
@@ -193,15 +210,6 @@ internal class ITab_BellManagerUtility
                             MessageTypeDefOf.RejectInput);
                     }
                 }
-
-                var label = localCol.LabelShort;
-
-                if (localCol.AnimalOrWildMan())
-                {
-                    label += $" ({localCol.def.race.AnyPawnKind.label})";
-                }
-
-                list.Add(new FloatMenuOption(label, Action));
             }
 
             Find.WindowStack.Add(new FloatMenu(list));

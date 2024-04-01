@@ -10,7 +10,7 @@ namespace ArenaBell;
 public class CompBell : ThingComp
 {
     private const float circleAddition = 0.3f;
-    private static readonly List<IntVec3> validCells = new List<IntVec3>();
+    private static readonly List<IntVec3> validCells = [];
 
     public float radius = 9.9f;
 

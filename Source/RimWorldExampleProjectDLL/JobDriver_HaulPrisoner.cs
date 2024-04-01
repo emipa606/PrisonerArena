@@ -13,21 +13,21 @@ public class JobDriver_HaulPrisoner : JobDriver
 
     private const TargetIndex DropIndex = TargetIndex.C;
 
-    private Pawn Takee => (Pawn)job.GetTarget(TargetIndex.A).Thing;
+    private Pawn Takee => (Pawn)job.GetTarget(TakeeIndex).Thing;
 
-    private Building_Bell BellRef => (Building_Bell)job.GetTarget(TargetIndex.B).Thing;
+    private Building_Bell BellRef => (Building_Bell)job.GetTarget(BellIndex).Thing;
 
-    private IntVec3 DropPosition => (IntVec3)job.GetTarget(TargetIndex.C);
+    private IntVec3 DropPosition => (IntVec3)job.GetTarget(DropIndex);
 
     protected override IEnumerable<Toil> MakeNewToils()
     {
-        this.FailOnDestroyedOrNull(TargetIndex.A);
-        this.FailOnDestroyedOrNull(TargetIndex.B);
-        yield return Toils_Reserve.Reserve(TargetIndex.A);
-        yield return Toils_Reserve.Reserve(TargetIndex.B);
+        this.FailOnDestroyedOrNull(TakeeIndex);
+        this.FailOnDestroyedOrNull(BellIndex);
+        yield return Toils_Reserve.Reserve(TakeeIndex);
+        yield return Toils_Reserve.Reserve(BellIndex);
         this.FailOn(delegate
         {
-            var unused = job.GetTarget(TargetIndex.A).Thing as IBillGiver;
+            _ = job.GetTarget(TakeeIndex).Thing as IBillGiver;
             return BellRef.currentState == Building_Bell.State.rest;
         });
         AddFinishAction(delegate
@@ -67,9 +67,9 @@ public class JobDriver_HaulPrisoner : JobDriver
                 BellRef.startTheShow();
             }
         };
-        yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch);
-        yield return Toils_Haul.StartCarryThing(TargetIndex.A);
-        yield return Toils_Goto.GotoCell(TargetIndex.C, PathEndMode.Touch);
+        yield return Toils_Goto.GotoThing(TakeeIndex, PathEndMode.ClosestTouch);
+        yield return Toils_Haul.StartCarryThing(TakeeIndex);
+        yield return Toils_Goto.GotoCell(DropIndex, PathEndMode.Touch);
         yield return new Toil
         {
             initAction = delegate

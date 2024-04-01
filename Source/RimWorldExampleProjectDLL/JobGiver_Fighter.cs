@@ -104,7 +104,7 @@ public class JobGiver_Fighter : JobGiver_AIFightEnemy
                             var isMeleeAttack = verb.verbProps.IsMeleeAttack;
                             if (isMeleeAttack || pawnTarget.Downed)
                             {
-                                result = MeleeAttackJob(enemyTarget);
+                                result = MeleeAttackJob(pawn, enemyTarget);
                                 result.killIncappedTarget = bellRef.toDeath;
                             }
                             else

@@ -45,20 +45,19 @@ public class WorkGiver_HandleFight : WorkGiver_Scanner
             return false;
         }
 
-        if (building.currentState != Building_Bell.State.scheduled)
+        if (building.currentState == Building_Bell.State.scheduled)
         {
-            if (building.fighter1.isInFight is true and true)
-            {
-                return false;
-            }
+            return pawn.CanReserve(building.fighter1.p, 1, -1, null, forced) &&
+                   pawn.CanReserve(building.fighter2.p, 1, -1, null, forced);
         }
 
-        if (!pawn.CanReserve(building.fighter1.p, 1, -1, null, forced))
+        if (building.fighter1.isInFight is true and true)
         {
             return false;
         }
 
-        return pawn.CanReserve(building.fighter2.p, 1, -1, null, forced);
+        return pawn.CanReserve(building.fighter1.p, 1, -1, null, forced) &&
+               pawn.CanReserve(building.fighter2.p, 1, -1, null, forced);
     }
 
     public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)

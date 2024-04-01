@@ -34,7 +34,7 @@ public class Building_Bell : Building, IBillGiver
 
     public bool winnerGetsFreedom;
 
-    public List<TaggedString> winners = new List<TaggedString>();
+    public List<TaggedString> winners = [];
 
     public Area FightingArea
     {
@@ -139,9 +139,9 @@ public class Building_Bell : Building, IBillGiver
         f.p.mindState.mentalStateHandler.Reset();
         var mentalStateHandler = f.p.mindState.mentalStateHandler;
         var ArenaFighting = MentalStateDefOfArena.Fighter;
-        var unused = f.p;
-        var unused1 = getOtherFighter(f).p;
-        mentalStateHandler.TryStartMentalState(ArenaFighting, "", false, false, null, true);
+        _ = f.p;
+        _ = getOtherFighter(f).p;
+        mentalStateHandler.TryStartMentalState(ArenaFighting, "", false, false, false, null, true);
         if (f.p.MentalState is not MentalState_Fighter mentalState)
         {
             return;

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Special mental states not from mental breaks -->
+  <MentalStateDef>
+    <defName>Fighter</defName>
+    <label>arena fighting</label>
+    <stateClass>ArenaBell.MentalState_Fighter</stateClass>
+    <category>Misc</category>
+    <minTicksBeforeRecovery>99500</minTicksBeforeRecovery>
+    <recoveryMtbDays>0.2</recoveryMtbDays>
+    <blockNormalThoughts>true</blockNormalThoughts>
+    <nameColor>(0.8, 0.8, 0.2)</nameColor>
+    <beginLetterLabel>Started battle</beginLetterLabel>
+    <beginLetter>{0} is fighting at the arena. Remove this later</beginLetter>
+    <beginLetterDef>NegativeEvent</beginLetterDef>
+    <baseInspectLine>In battle</baseInspectLine>
+  </MentalStateDef>
+</Defs>
