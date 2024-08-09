@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <TabManage>Organize</TabManage>
   <PA.NoFighters>No fighters available.</PA.NoFighters>
@@ -27,6 +27,10 @@
   <PA.IncreaseRadiusTT>Increase arena radius</PA.IncreaseRadiusTT>
   <PA.DecreaseRadius>Decrease radius</PA.DecreaseRadius>
   <PA.DecreaseRadiusTT>Decrease arena radius</PA.DecreaseRadiusTT>
+  <PA.IncreaseAudienceBuffer>Decrease fight area</PA.IncreaseAudienceBuffer>
+  <PA.IncreaseAudienceBufferTT>Increases spectator area</PA.IncreaseAudienceBufferTT>
+  <PA.DecreaseAudienceBuffer>Increase fight area</PA.DecreaseAudienceBuffer>
+  <PA.DecreaseAudienceBufferTT>Decrease spectator area</PA.DecreaseAudienceBufferTT>
   <PA.SwitchToCircle>Switch to circle</PA.SwitchToCircle>
   <PA.SwitchToCircleTT>Switch to a circle layout for the area</PA.SwitchToCircleTT>
   <PA.SwitchToSquare>Switch to square</PA.SwitchToSquare>

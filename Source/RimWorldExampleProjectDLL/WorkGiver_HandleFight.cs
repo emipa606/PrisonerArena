@@ -51,7 +51,7 @@ public class WorkGiver_HandleFight : WorkGiver_Scanner
                    pawn.CanReserve(building.fighter2.p, 1, -1, null, forced);
         }
 
-        if (building.fighter1.isInFight is true and true)
+        if (building.fighter1.isInFight)
         {
             return false;
         }
@@ -64,7 +64,7 @@ public class WorkGiver_HandleFight : WorkGiver_Scanner
     {
         if (t is Building_Bell building && building.currentState != Building_Bell.State.scheduled)
         {
-            if (building.fighter1.isInFight is true and true)
+            if (building.fighter1.isInFight)
             {
                 return null;
             }

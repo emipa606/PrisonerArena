@@ -32,4 +32,8 @@
   <PA.SwitchToCircleTT>Umschalten auf ein Kreislayout für den Bereich</PA.SwitchToCircleTT>
   <PA.SwitchToSquare>Zum Quadrat wechseln</PA.SwitchToSquare>
   <PA.SwitchToSquareTT>Umschalten auf ein quadratisches Layout für den Bereich</PA.SwitchToSquareTT>
+  <PA.IncreaseAudienceBuffer>Kampfgebiet verkleinern</PA.IncreaseAudienceBuffer>
+  <PA.IncreaseAudienceBufferTT>Vergrößert den Zuschauerbereich</PA.IncreaseAudienceBufferTT>
+  <PA.DecreaseAudienceBuffer>Kampfgebiet vergrößern</PA.DecreaseAudienceBuffer>
+  <PA.DecreaseAudienceBufferTT>Verkleinerung des Zuschauerbereichs</PA.DecreaseAudienceBufferTT>
 </LanguageData>

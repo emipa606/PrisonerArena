@@ -1,5 +1,9 @@
 # Changelog for PrisonerArena
 
+1.5.1 - Added option to change the fight-area separate
+Used DeepL to update translations for ChineseSimplified, French, German, Russian
+
+
 1.5.0 - Mod updated for 1.5 and passed autotests
 
 

@@ -9,8 +9,9 @@ namespace ArenaBell;
 [StaticConstructorOnStartup]
 public class CompBell : ThingComp
 {
-    private const float circleAddition = 0.3f;
+    public const float circleAddition = 1.3f;
     private static readonly List<IntVec3> validCells = [];
+    public int audience = 1;
 
     public float radius = 9.9f;
 
@@ -33,7 +34,7 @@ public class CompBell : ThingComp
                 {
                     foreach (var item in r.Cells)
                     {
-                        if (item.InHorDistOf(parent.Position, radius + circleAddition))
+                        if (item.InHorDistOf(parent.Position, radius + circleAddition - audience))
                         {
                             validCells.Add(item);
                         }
@@ -46,24 +47,42 @@ public class CompBell : ThingComp
             }
 
             var cellRect = CellRect.CenteredOn(parent.Position, 1).ExpandedBy(Mathf.RoundToInt(radius));
-            return ValidCellsAround(parent.Position, parent.Map, cellRect.ContractedBy(1));
+            return ValidCellsAround(parent.Position, parent.Map, cellRect.ContractedBy(audience));
         }
     }
 
     private void decreaseRad()
     {
         radius = Mathf.Max(1f, radius - 1f);
+        if (audience > radius - 1)
+        {
+            audience = (int)radius - 1;
+        }
+
+        audience = Mathf.Max(1, audience);
     }
 
     private void increaseRad()
     {
         radius = Mathf.Min(25f, radius + 1f);
+        audience = Mathf.Max(1, audience);
+    }
+
+    private void decreaseAudience()
+    {
+        audience = Mathf.Max(1, audience - 1);
+    }
+
+    private void increaseAudience()
+    {
+        audience = Mathf.Min((int)radius - 1, audience + 1);
     }
 
     public override void PostExposeData()
     {
         base.PostExposeData();
         Scribe_Values.Look(ref radius, "radius", 9.9f);
+        Scribe_Values.Look(ref audience, "audience", 1);
         Scribe_Values.Look(ref useCircle, "useCircle");
     }
 
@@ -79,7 +98,7 @@ public class CompBell : ThingComp
 
         var outerSquareCells = CellRect.CenteredOn(parent.Position, 1).ExpandedBy(Mathf.RoundToInt(radius)).Cells;
         var innerSquareCells = CellRect.CenteredOn(parent.Position, 1).ExpandedBy(Mathf.RoundToInt(radius))
-            .ContractedBy(1).Cells;
+            .ContractedBy(audience).Cells;
         var validOuterCells = new List<IntVec3>();
         var validInnerCells = new List<IntVec3>();
 
@@ -89,12 +108,12 @@ public class CompBell : ThingComp
             {
                 if (useCircle)
                 {
-                    if (item.InHorDistOf(parent.Position, radius + circleAddition + 1))
+                    if (item.InHorDistOf(parent.Position, radius + circleAddition))
                     {
                         validOuterCells.Add(item);
                     }
 
-                    if (item.InHorDistOf(parent.Position, radius + circleAddition))
+                    if (item.InHorDistOf(parent.Position, radius + circleAddition - audience))
                     {
                         validInnerCells.Add(item);
                     }
@@ -135,14 +154,35 @@ public class CompBell : ThingComp
             hotKey = KeyBindingDefOf.Misc5,
             icon = ContentFinder<Texture2D>.Get("UI/Commands/ExpandRadius")
         };
+
         yield return new Command_Action
         {
             action = decreaseRad,
             defaultLabel = "PA.DecreaseRadius".Translate(),
             defaultDesc = "PA.DecreaseRadiusTT".Translate(),
             hotKey = KeyBindingDefOf.Misc6,
-            icon = ContentFinder<Texture2D>.Get("UI/Commands/ShrinkRadius")
+            icon = ContentFinder<Texture2D>.Get("UI/Commands/ShrinkRadius"),
+            Disabled = radius <= 1f
         };
+
+        yield return new Command_Action
+        {
+            action = decreaseAudience,
+            defaultLabel = "PA.DecreaseAudienceBuffer".Translate(),
+            defaultDesc = "PA.DecreaseAudienceBufferTT".Translate(),
+            icon = ContentFinder<Texture2D>.Get("UI/Commands/DecreaseAudienceBuffer"),
+            Disabled = radius <= 1f || audience <= 1
+        };
+
+        yield return new Command_Action
+        {
+            action = increaseAudience,
+            defaultLabel = "PA.IncreaseAudienceBuffer".Translate(),
+            defaultDesc = "PA.IncreaseAudienceBufferTT".Translate(),
+            icon = ContentFinder<Texture2D>.Get("UI/Commands/IncreaseAudienceBuffer"),
+            Disabled = radius <= 1f
+        };
+
         if (!useCircle)
         {
             yield return new Command_Action

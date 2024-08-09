@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <ThingDef ParentName="BuildingBase" Abstract="True" Name="Abstract_ArenaBell">
     <description>An area in which the fights will be held. Prisoners will fight within the white zones and the spectators would stay by the grey zone.</description>

@@ -32,4 +32,8 @@
   <PA.SwitchToCircleTT>Passer à une disposition en cercle pour la zone</PA.SwitchToCircleTT>
   <PA.SwitchToSquare>Passer au carré</PA.SwitchToSquare>
   <PA.SwitchToSquareTT>Passer à une disposition carrée pour la zone</PA.SwitchToSquareTT>
+  <PA.IncreaseAudienceBuffer>Diminution de la surface de combat</PA.IncreaseAudienceBuffer>
+  <PA.IncreaseAudienceBufferTT>Augmente la surface des spectateurs</PA.IncreaseAudienceBufferTT>
+  <PA.DecreaseAudienceBuffer>Augmenter la surface de combat</PA.DecreaseAudienceBuffer>
+  <PA.DecreaseAudienceBufferTT>Diminuer la surface des spectateurs</PA.DecreaseAudienceBufferTT>
 </LanguageData>

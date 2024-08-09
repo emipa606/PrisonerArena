@@ -26,11 +26,12 @@ public class LordToil_FightingMatch(IntVec3 spot, Building_Bell _bell) : LordToi
                 spectateRect = CalculateSpectateRect(),
                 focus = _bell
             };
-
-            if (_bell.GetComp<CompBell>().useCircle)
+            var bellComp = _bell.GetComp<CompBell>();
+            if (bellComp.useCircle)
             {
-                duty.spectateDistance = new IntRange((int)_bell.GetComp<CompBell>().radius + 2,
-                    (int)(_bell.GetComp<CompBell>().radius + 3));
+                duty.spectateDistance = new IntRange(
+                    (int)(bellComp.radius + CompBell.circleAddition + 1),
+                    (int)(bellComp.radius + CompBell.circleAddition + bellComp.audience + 1));
             }
 
             ownedPawn.mindState.duty = duty;

@@ -32,4 +32,8 @@
   <PA.SwitchToCircleTT>Переключение на круговое расположение области</PA.SwitchToCircleTT>
   <PA.SwitchToSquare>Переключение на квадрат</PA.SwitchToSquare>
   <PA.SwitchToSquareTT>Переход к квадратному расположению области</PA.SwitchToSquareTT>
+  <PA.IncreaseAudienceBuffer>Уменьшить площадь боя</PA.IncreaseAudienceBuffer>
+  <PA.IncreaseAudienceBufferTT>Увеличивает зрительскую зону</PA.IncreaseAudienceBufferTT>
+  <PA.DecreaseAudienceBuffer>Увеличить площадь боя</PA.DecreaseAudienceBuffer>
+  <PA.DecreaseAudienceBufferTT>Уменьшение зрительской зоны</PA.DecreaseAudienceBufferTT>
 </LanguageData>
