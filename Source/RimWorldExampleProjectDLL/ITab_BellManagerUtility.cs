@@ -90,129 +90,125 @@ internal class ITab_BellManagerUtility
         }
     }
 
+    private static List<Pawn> allValidPawnsOnMap(Building_Bell bell)
+    {
+        var validActors = bell.Map.mapPawns.SlavesAndPrisonersOfColonySpawned;
+        validActors.AddRange(bell.Map.mapPawns.SpawnedColonyAnimals);
+        validActors.AddRange(bell.Map.mapPawns.SpawnedColonyMechs);
+        validActors.AddRange(bell.Map.mapPawns.SpawnedColonyMutantsPlayerControlled);
+        validActors.AddRange(bell.Map.mapPawns.FreeColonistsSpawned);
+        return validActors;
+    }
+
     public static void OpenActor1SelectMenu(Building_Bell bell)
     {
         var actorList = new List<Pawn>();
+        var validActors = allValidPawnsOnMap(bell);
 
-        if (bell.Map.mapPawns.PrisonersOfColonySpawned == null ||
-            bell.Map.mapPawns.PrisonersOfColonySpawnedCount <= 0)
+        if (!validActors.Any())
         {
             Messages.Message("PA.NoFighters".Translate(), MessageTypeDefOf.RejectInput);
+            return;
         }
-        else
+
+        foreach (var candidate in validActors)
         {
-            foreach (var candidate in bell.Map.mapPawns.PrisonersOfColonySpawned)
+            if (bell.fighter2.p == candidate)
             {
-                actorList.Add(candidate);
-            }
-
-            foreach (var candidate in bell.Map.mapPawns.AllPawns)
-            {
-                if (candidate.Faction is { IsPlayer: true } && candidate.RaceProps.Animal)
-                {
-                    actorList.Add(candidate);
-                }
-            }
-
-            if (actorList.Count <= 0)
-            {
-                Messages.Message("PA.NoFighters".Translate(), MessageTypeDefOf.RejectInput);
-                return;
-            }
-
-            var list = new List<FloatMenuOption>();
-            foreach (var actor in actorList)
-            {
-                var localCol = actor;
-
-                var label = localCol.LabelShort;
-
-                if (localCol.AnimalOrWildMan())
-                {
-                    label += $" ({localCol.def.race.AnyPawnKind.label})";
-                }
-
-                list.Add(new FloatMenuOption(label, Action));
                 continue;
-
-                void Action()
-                {
-                    if (localCol.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
-                    {
-                        bell.fighter1.p = localCol;
-                    }
-                    else
-                    {
-                        Messages.Message("PA.CantMove".Translate(localCol.Name.ToStringShort),
-                            MessageTypeDefOf.RejectInput);
-                    }
-                }
             }
 
-            Find.WindowStack.Add(new FloatMenu(list));
+            if (!candidate.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
+            {
+                continue;
+            }
+
+            actorList.Add(candidate);
         }
+
+        if (actorList.Count <= 0)
+        {
+            Messages.Message("PA.NoFighters".Translate(), MessageTypeDefOf.RejectInput);
+            return;
+        }
+
+        var list = new List<FloatMenuOption>();
+        foreach (var actor in actorList)
+        {
+            var localCol = actor;
+
+            var label = localCol.LabelShort;
+
+            if (localCol.AnimalOrWildMan() || localCol.IsColonyMech)
+            {
+                label += $" ({localCol.def.race.AnyPawnKind.label})";
+            }
+
+            list.Add(new FloatMenuOption(label, Action));
+            continue;
+
+            void Action()
+            {
+                bell.fighter1.p = localCol;
+            }
+        }
+
+        Find.WindowStack.Add(new FloatMenu(list));
     }
 
     public static void OpenActor2SelectMenu(Building_Bell bell)
     {
         var actorList = new List<Pawn>();
+        var validActors = allValidPawnsOnMap(bell);
 
-        if (bell.Map.mapPawns.PrisonersOfColonySpawned == null ||
-            bell.Map.mapPawns.PrisonersOfColonySpawnedCount <= 0)
+        if (!validActors.Any())
         {
             Messages.Message("PA.NoFighters".Translate(), MessageTypeDefOf.RejectInput);
+            return;
         }
-        else
+
+        foreach (var candidate in validActors)
         {
-            foreach (var candidate in bell.Map.mapPawns.PrisonersOfColonySpawned)
+            if (bell.fighter1.p == candidate)
             {
-                actorList.Add(candidate);
-            }
-
-            foreach (var candidate in bell.Map.mapPawns.AllPawns)
-            {
-                if (candidate.Faction is { IsPlayer: true } && candidate.RaceProps.Animal)
-                {
-                    actorList.Add(candidate);
-                }
-            }
-
-            if (actorList.Count <= 0)
-            {
-                Messages.Message("PA.NoFighters".Translate(), MessageTypeDefOf.RejectInput);
-                return;
-            }
-
-            var list = new List<FloatMenuOption>();
-            foreach (var actor in actorList)
-            {
-                var localCol = actor;
-
-                var label = localCol.LabelShort;
-
-                if (localCol.AnimalOrWildMan())
-                {
-                    label += $" ({localCol.def.race.AnyPawnKind.label})";
-                }
-
-                list.Add(new FloatMenuOption(label, Action));
                 continue;
-
-                void Action()
-                {
-                    if (localCol.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
-                    {
-                        bell.fighter2.p = localCol;
-                    }
-                    else
-                    {
-                        Messages.Message("PA.CantMove".Translate(localCol.Name.ToStringShort),
-                            MessageTypeDefOf.RejectInput);
-                    }
-                }
             }
 
-            Find.WindowStack.Add(new FloatMenu(list));
+            if (!candidate.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
+            {
+                continue;
+            }
+
+            actorList.Add(candidate);
         }
+
+        if (actorList.Count <= 0)
+        {
+            Messages.Message("PA.NoFighters".Translate(), MessageTypeDefOf.RejectInput);
+            return;
+        }
+
+        var list = new List<FloatMenuOption>();
+        foreach (var actor in actorList)
+        {
+            var localCol = actor;
+
+            var label = localCol.LabelShort;
+
+            if (localCol.AnimalOrWildMan() || localCol.IsColonyMech)
+            {
+                label += $" ({localCol.def.race.AnyPawnKind.label})";
+            }
+
+            list.Add(new FloatMenuOption(label, Action));
+            continue;
+
+            void Action()
+            {
+                bell.fighter2.p = localCol;
+            }
+        }
+
+        Find.WindowStack.Add(new FloatMenu(list));
     }
 }

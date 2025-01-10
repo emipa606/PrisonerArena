@@ -179,6 +179,8 @@ public class Building_Bell : Building, IBillGiver
                     }
                 }
 
+                winner?.needs.mood?.thoughts.memories.TryGainMemory(ThoughtDefOfArena.ArenaWinner);
+
                 if (winnerGetsFreedom)
                 {
                     if (winner is { IsPrisonerOfColony: true })
@@ -186,12 +188,19 @@ public class Building_Bell : Building, IBillGiver
                         GenGuest.PrisonerRelease(winner);
                         Messages.Message("PA.WonFreedom".Translate(pawn.NameFullColored),
                             MessageTypeDefOf.PositiveEvent);
-                        //TryReleasePrisoner(winner);
                     }
-                }
-                else
-                {
-                    winner?.needs.mood?.thoughts.memories.TryGainMemory(ThoughtDefOfArena.ArenaWinner);
+
+                    if (winner is { IsSlaveOfColony: true })
+                    {
+                        GenGuest.SlaveRelease(winner);
+                        if (winner.IsWildMan())
+                        {
+                            winner.mindState.WildManEverReachedOutside = false;
+                        }
+
+                        Messages.Message("PA.WonFreedom".Translate(pawn.NameFullColored),
+                            MessageTypeDefOf.PositiveEvent);
+                    }
                 }
             }
 
