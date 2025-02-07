@@ -4,7 +4,7 @@
   <JobDef>
     <defName>HaulingPrisoner</defName>
     <driverClass>ArenaBell.JobDriver_HaulPrisoner</driverClass>
-    <reportString>preparing prisoners for a fight.</reportString>
+    <reportString>preparing participants for a fight.</reportString>
     <joyDuration>1600</joyDuration>
     <joyGainRate>2</joyGainRate>
     <alwaysShowWeapon>true</alwaysShowWeapon>

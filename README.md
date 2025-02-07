@@ -7,9 +7,9 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1668624708
 
 - Fights can now go on until death
 - A scoreboard saves the names of all winners
-- Winners can now be released as reward instead of getting glory
+- Slaves and prisoners that win can now be released as reward as well as getting glory
 - Spectators stand outside of the gray area to enable construction of fences around the fighters
-- Animals can now be selected as fighters, thanks Gagaro
+- Animals, slaves, mechs and mutants can now be selected as fighters, thanks Gagaro and jeonggihun
 - Russian translation added, via Amycolis
 
 ![Image](https://i.imgur.com/pufA0kM.png)

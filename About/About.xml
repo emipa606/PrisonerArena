@@ -20,9 +20,9 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1668624708
 
 - Fights can now go on until death
 - A scoreboard saves the names of all winners
-- Winners can now be released as reward instead of getting glory
+- Slaves and prisoners that win can now be released as reward as well as getting glory
 - Spectators stand outside of the gray area to enable construction of fences around the fighters
-- Animals can now be selected as fighters, thanks Gagaro
+- Animals, slaves, mechs and mutants can now be selected as fighters, thanks Gagaro and jeonggihun
 - Russian translation added, via Amycolis
 
 [img]https://i.imgur.com/pufA0kM.png[/img]
@@ -82,5 +82,5 @@ And that's about it. Report the bugs you found! Thanks for stopping by
 [/list] 
 
 [url=https://steamcommunity.com/sharedfiles/filedetails/changelog/2022581505][img]https://img.shields.io/github/v/release/emipa606/PrisonerArena?label=latest%20version&amp;style=plastic&amp;color=9f1111&amp;labelColor=black[/img][/url] | tags:  arena,  fighting</description>
-  <modVersion IgnoreIfNoMatchingField="True">1.5.2</modVersion>
+  <modVersion IgnoreIfNoMatchingField="True">1.5.3</modVersion>
 </ModMetaData>

@@ -7,7 +7,6 @@
       <texPath>Things/Building/ArenaSpot</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-    <!-- <designatorDropdown>ArenaSpotsGroup</designatorDropdown> -->
     <altitudeLayer>FloorEmplacement</altitudeLayer>
     <statBases>
       <WorkToBuild>0</WorkToBuild>
@@ -39,12 +38,4 @@
     <label>Arena Spot</label>
     <size>(1,1)</size>
   </ThingDef>
-  <!-- <ThingDef ParentName="Abstract_ArenaBell"> -->
-  <!-- <defName>Building_ArenaBell_Wide</defName> -->
-  <!-- <label>Arena Spot (Wide)</label> -->
-  <!-- <graphicData> -->
-  <!-- <drawSize>(2,1)</drawSize> -->
-  <!-- </graphicData> -->
-  <!-- <size>(2,1)</size> -->
-  <!-- </ThingDef> -->
 </Defs>

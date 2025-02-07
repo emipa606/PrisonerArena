@@ -118,10 +118,10 @@ internal class ITab_BellManagerUtility
                 continue;
             }
 
-            if (!candidate.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
-            {
-                continue;
-            }
+            //if (!candidate.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
+            //{
+            //    continue;
+            //}
 
             actorList.Add(candidate);
         }
@@ -174,10 +174,10 @@ internal class ITab_BellManagerUtility
                 continue;
             }
 
-            if (!candidate.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
-            {
-                continue;
-            }
+            //if (!candidate.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
+            //{
+            //    continue;
+            //}
 
             actorList.Add(candidate);
         }

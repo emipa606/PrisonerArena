@@ -1,15 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RimWorld;
 using Verse;
-using Verse.AI;
 using Verse.AI.Group;
 
 namespace ArenaBell;
 
-public class Building_Bell : Building, IBillGiver
+public class Building_Bell : Building //, IBillGiver
 {
     public enum State
     {
@@ -46,19 +44,19 @@ public class Building_Bell : Building, IBillGiver
         set => fightingArea_int = value;
     }
 
-    public IEnumerable<IntVec3> IngredientStackCells => throw new NotImplementedException();
+    //public IEnumerable<IntVec3> IngredientStackCells => throw new NotImplementedException();
 
-    public BillStack BillStack => throw new NotImplementedException();
+    //public BillStack BillStack => throw new NotImplementedException();
 
-    public bool CurrentlyUsableForBills()
-    {
-        throw new NotImplementedException();
-    }
+    //public bool CurrentlyUsableForBills()
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public bool UsableForBillsAfterFueling()
-    {
-        throw new NotImplementedException();
-    }
+    //public bool UsableForBillsAfterFueling()
+    //{
+    //    throw new NotImplementedException();
+    //}
 
     public void Notify_BillDeleted(Bill bill)
     {
@@ -111,14 +109,14 @@ public class Building_Bell : Building, IBillGiver
         {
             Messages.Message("PA.CantMove".Translate(fighter1.p.Name.ToStringShort),
                 MessageTypeDefOf.RejectInput);
-            return;
+            //return;
         }
 
         if (!fightCapable(fighter2.p))
         {
             Messages.Message("PA.CantMove".Translate(fighter2.p.Name.ToStringShort),
                 MessageTypeDefOf.RejectInput);
-            return;
+            //return;
         }
 
         currentState = State.scheduled;
@@ -219,93 +217,89 @@ public class Building_Bell : Building, IBillGiver
         fighter2 = new Fighter();
     }
 
-    private void DoTickerWork()
-    {
-    }
+    //public void TryReleasePrisoner(Pawn prisoner)
+    //{
+    //    Pawn warden = null;
+    //    foreach (var current in Map.mapPawns.FreeColonistsSpawned)
+    //    {
+    //        if (current.Dead)
+    //        {
+    //            continue;
+    //        }
 
-    public void TryReleasePrisoner(Pawn prisoner)
-    {
-        Pawn warden = null;
-        foreach (var current in Map.mapPawns.FreeColonistsSpawned)
-        {
-            if (current.Dead)
-            {
-                continue;
-            }
+    //        if (!(current.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) &&
+    //              current.health.capacities.CapableOf(PawnCapacityDefOf.Moving)))
+    //        {
+    //            continue;
+    //        }
 
-            if (!(current.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) &&
-                  current.health.capacities.CapableOf(PawnCapacityDefOf.Moving)))
-            {
-                continue;
-            }
+    //        warden = current;
+    //        break;
+    //    }
 
-            warden = current;
-            break;
-        }
+    //    if (warden != null)
+    //    {
+    //        if (!RCellFinder.TryFindPrisonerReleaseCell(prisoner, warden, out var c))
+    //        {
+    //            Messages.Message("PA.NoSpot".Translate(), MessageTypeDefOf.RejectInput);
+    //            return;
+    //        }
 
-        if (warden != null)
-        {
-            if (!RCellFinder.TryFindPrisonerReleaseCell(prisoner, warden, out var c))
-            {
-                Messages.Message("PA.NoSpot".Translate(), MessageTypeDefOf.RejectInput);
-                return;
-            }
+    //        Log.Message("PA.WillRelease".Translate(warden.NameShortColored, prisoner.NameShortColored));
+    //        var job = new Job(JobDefOf.ReleasePrisoner, prisoner, c);
+    //        warden.jobs.EndCurrentJob(JobCondition.InterruptForced, false, false);
+    //        warden.jobs.TryTakeOrderedJob(job);
+    //    }
+    //    else
+    //    {
+    //        Messages.Message("PA.NoWarden".Translate(), MessageTypeDefOf.RejectInput);
+    //    }
+    //}
 
-            Log.Message("PA.WillRelease".Translate(warden.NameShortColored, prisoner.NameShortColored));
-            var job = new Job(JobDefOf.ReleasePrisoner, prisoner, c);
-            warden.jobs.EndCurrentJob(JobCondition.InterruptForced, false, false);
-            warden.jobs.TryTakeOrderedJob(job);
-        }
-        else
-        {
-            Messages.Message("PA.NoWarden".Translate(), MessageTypeDefOf.RejectInput);
-        }
-    }
+    //public void TryHaulPrisoners(Pawn prisoner)
+    //{
+    //    Pawn warden = null;
+    //    foreach (var current in Map.mapPawns.FreeColonistsSpawned)
+    //    {
+    //        if (current.Dead)
+    //        {
+    //            continue;
+    //        }
 
-    public void TryHaulPrisoners(Pawn prisoner)
-    {
-        Pawn warden = null;
-        foreach (var current in Map.mapPawns.FreeColonistsSpawned)
-        {
-            if (current.Dead)
-            {
-                continue;
-            }
+    //        if (!(current.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) &&
+    //              current.health.capacities.CapableOf(PawnCapacityDefOf.Moving)))
+    //        {
+    //            continue;
+    //        }
 
-            if (!(current.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) &&
-                  current.health.capacities.CapableOf(PawnCapacityDefOf.Moving)))
-            {
-                continue;
-            }
+    //        warden = current;
+    //        break;
+    //    }
 
-            warden = current;
-            break;
-        }
+    //    if (warden != null)
+    //    {
+    //        StartHaulPrisoners(warden, prisoner);
+    //    }
+    //    else
+    //    {
+    //        Messages.Message(
+    //            "PA.NoWardenToFight".Translate(),
+    //            MessageTypeDefOf.RejectInput);
+    //    }
+    //}
 
-        if (warden != null)
-        {
-            StartHaulPrisoners(warden, prisoner);
-        }
-        else
-        {
-            Messages.Message(
-                "PA.NoWardenToFight".Translate(),
-                MessageTypeDefOf.RejectInput);
-        }
-    }
-
-    private void StartHaulPrisoners(Pawn warden, Pawn prisoner)
-    {
-        if (Destroyed || !Spawned)
-        {
-            TryCancelBrawl("PA.NoBell".Translate());
-        }
-        else
-        {
-            var job = new Job(JobDefOfArena.HaulingPrisoner, prisoner, this, getFighterStandPoint());
-            warden.jobs.TryTakeOrderedJob(job);
-        }
-    }
+    //private void StartHaulPrisoners(Pawn warden, Pawn prisoner)
+    //{
+    //    if (Destroyed || !Spawned)
+    //    {
+    //        TryCancelBrawl("PA.NoBell".Translate());
+    //    }
+    //    else
+    //    {
+    //        var job = new Job(JobDefOfArena.HaulingPrisoner, prisoner, this, getFighterStandPoint());
+    //        warden.jobs.TryTakeOrderedJob(job);
+    //    }
+    //}
 
     public void PrisonerDelievered(Pawn p)
     {

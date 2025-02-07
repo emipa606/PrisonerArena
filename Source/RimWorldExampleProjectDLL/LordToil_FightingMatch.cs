@@ -7,11 +7,6 @@ namespace ArenaBell;
 
 public class LordToil_FightingMatch(IntVec3 spot, Building_Bell _bell) : LordToil
 {
-    public static readonly IntVec3 OtherFianceNoMarriageSpotCellOffset = new IntVec3(-1, 0, 0);
-
-    private IntVec3 spot = spot;
-
-
     public override ThinkTreeDutyHook VoluntaryJoinDutyHookFor(Pawn p)
     {
         return DutyDefOfArena.SpectateFight.hook;

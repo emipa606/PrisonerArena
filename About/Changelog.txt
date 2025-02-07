@@ -1,5 +1,8 @@
 # Changelog for PrisonerArena
 
+1.5.3 - You can now add downed pawns to the arena to get beaten
+
+
 1.5.2 - All types of colony pawns should now be able to fight. Colonists, slaves, prisoners, mechs and animals
 
 
