@@ -38,7 +38,8 @@ public class JobGiver_Fighter : JobGiver_AIFightEnemy
         }
 
         var primary = pawn.equipment?.Primary;
-        if (bellRef.currentState == Building_Bell.State.fight && pawn.equipment != null && primary == null)
+        if (bellRef.currentState == Building_Bell.State.fight && pawn.equipment != null && primary == null &&
+            pawn.RaceProps?.Animal == false)
         {
             var suitableWeapons = new List<Thing>();
             foreach (var c in bellRef.GetComp<CompBell>().ValidCells)

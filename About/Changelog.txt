@@ -1,5 +1,8 @@
 # Changelog for PrisonerArena
 
+1.5.4 - Animals should not try to pick up weapons in a fight
+
+
 1.5.3 - You can now add downed pawns to the arena to get beaten
 
 
