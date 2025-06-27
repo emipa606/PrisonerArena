@@ -20,16 +20,16 @@ public class JobDriver_CheerForFighter : JobDriver
         yield return InteractToil();
         yield return new Toil
         {
-            tickAction = delegate
+            tickIntervalAction = delegate(int delta)
             {
                 if (((Building_Bell)pawn.mindState.duty.focus.Thing).currentState ==
                     Building_Bell.State.fight)
                 {
-                    JoyUtility.JoyTickCheckEnd(pawn, JoyTickFullJoyAction.None);
+                    JoyUtility.JoyTickCheckEnd(pawn, delta, JoyTickFullJoyAction.None);
                 }
 
-                pawn.GainComfortFromCellIfPossible();
-                if (pawn.IsHashIntervalTick(100))
+                pawn.GainComfortFromCellIfPossible(delta);
+                if (pawn.IsHashIntervalTick(100, delta))
                 {
                     pawn.jobs.CheckForJobOverride();
                 }
@@ -45,10 +45,10 @@ public class JobDriver_CheerForFighter : JobDriver
         {
             var rnd = new Random();
             var rand = rnd.Next(0, 2);
-            var _p = rand == 0
+            var p = rand == 0
                 ? ((Building_Bell)pawn.mindState.duty.focus.Thing).fighter1.p
                 : ((Building_Bell)pawn.mindState.duty.focus.Thing).fighter2.p;
-            var head = PortraitsCache.Get(_p, ColonistBarColonistDrawer.PawnTextureSize, Rot4.South);
+            var head = PortraitsCache.Get(p, ColonistBarColonistDrawer.PawnTextureSize, Rot4.South);
             var headIcon = new Texture2D(75, 75);
             for (var i = 0; i < 75; i++)
             {
@@ -72,12 +72,12 @@ public class JobDriver_CheerForFighter : JobDriver
             _cheerIcon.Apply();
             RenderTexture.active = previous;
             RenderTexture.ReleaseTemporary(tmp);
-            var merged = MergeTextures(_cheerIcon, headIcon);
+            var merged = mergeTextures(_cheerIcon, headIcon);
             MoteMaker.MakeInteractionBubble(pawn, null, ThingDefOf.Mote_Speech, merged);
         });
     }
 
-    private static Texture2D MergeTextures(Texture2D aBottom, Texture2D aTop)
+    private static Texture2D mergeTextures(Texture2D aBottom, Texture2D aTop)
     {
         if (aBottom.width != aTop.width || aBottom.height != aTop.height)
         {

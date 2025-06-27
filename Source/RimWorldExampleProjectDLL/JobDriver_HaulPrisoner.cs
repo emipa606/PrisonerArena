@@ -64,7 +64,7 @@ public class JobDriver_HaulPrisoner : JobDriver
                 }
 
                 BellRef.currentState = Building_Bell.State.preparation;
-                BellRef.startTheShow();
+                BellRef.StartTheShow();
             }
         };
         yield return Toils_Goto.GotoThing(TakeeIndex, PathEndMode.ClosestTouch);
@@ -81,15 +81,15 @@ public class JobDriver_HaulPrisoner : JobDriver
                     return;
                 }
 
-                HaulFinished();
-                BellRef.PrisonerDelievered(Takee);
+                haulFinished();
+                BellRef.PrisonerDelivered(Takee);
                 if (BellRef.currentState == Building_Bell.State.fight)
                 {
                     return;
                 }
 
-                var carryPrisonerJob = new Job(JobDefOfArena.HaulingPrisoner, BellRef.getPrisonerForHaul(), BellRef,
-                    BellRef.getFighterStandPoint())
+                var carryPrisonerJob = new Job(JobDefOfArena.HaulingPrisoner, BellRef.GetPrisonerForHaul(), BellRef,
+                    BellRef.GetFighterStandPoint())
                 {
                     count = 1
                 };
@@ -99,7 +99,7 @@ public class JobDriver_HaulPrisoner : JobDriver
         };
     }
 
-    private void HaulFinished()
+    private void haulFinished()
     {
         Takee.Position = DropPosition;
         Takee.Notify_Teleported(false);

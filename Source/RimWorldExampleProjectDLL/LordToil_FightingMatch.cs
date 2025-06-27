@@ -18,7 +18,7 @@ public class LordToil_FightingMatch(IntVec3 spot, Building_Bell _bell) : LordToi
         {
             var duty = new PawnDuty(DutyDefOfArena.SpectateFight)
             {
-                spectateRect = CalculateSpectateRect(),
+                spectateRect = calculateSpectateRect(),
                 focus = _bell
             };
             var bellComp = _bell.GetComp<CompBell>();
@@ -33,7 +33,7 @@ public class LordToil_FightingMatch(IntVec3 spot, Building_Bell _bell) : LordToi
         }
     }
 
-    private CellRect CalculateSpectateRect()
+    private CellRect calculateSpectateRect()
     {
         return CellRect.CenteredOn(_bell.Position, Mathf.RoundToInt(_bell.GetComp<CompBell>().radius));
     }

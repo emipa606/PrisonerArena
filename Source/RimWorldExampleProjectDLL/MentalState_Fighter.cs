@@ -29,7 +29,7 @@ public class MentalState_Fighter : MentalState
         Scribe_References.Look(ref otherPawn, "otherPawn");
     }
 
-    public override void MentalStateTick()
+    public override void MentalStateTick(int delta)
     {
         var shouldStop = ShouldStop;
         if (shouldStop)
@@ -42,12 +42,12 @@ public class MentalState_Fighter : MentalState
 
             if (!bellRef.toDeath && otherPawn.Downed || otherPawn.Dead)
             {
-                bellRef.endBrawl(pawn);
+                bellRef.EndBrawl(pawn);
             }
         }
         else
         {
-            base.MentalStateTick();
+            base.MentalStateTick(delta);
         }
     }
 }

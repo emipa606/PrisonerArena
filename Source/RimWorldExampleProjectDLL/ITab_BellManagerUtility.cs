@@ -50,8 +50,8 @@ internal class ITab_BellManagerUtility
     {
         var list = new List<FloatMenuOption>
         {
-            new FloatMenuOption("PA.NoKilling".Translate(), DownedAction),
-            new FloatMenuOption("PA.Death".Translate(), DeathAction)
+            new("PA.NoKilling".Translate(), DownedAction),
+            new("PA.Death".Translate(), DeathAction)
         };
 
         Find.WindowStack.Add(new FloatMenu(list));
@@ -72,8 +72,8 @@ internal class ITab_BellManagerUtility
     {
         var list = new List<FloatMenuOption>
         {
-            new FloatMenuOption("PA.Glory".Translate(), GloryAction),
-            new FloatMenuOption("PA.Freedom".Translate(), FreedomAction)
+            new("PA.Glory".Translate(), GloryAction),
+            new("PA.Freedom".Translate(), FreedomAction)
         };
 
         Find.WindowStack.Add(new FloatMenu(list));
@@ -95,7 +95,7 @@ internal class ITab_BellManagerUtility
         var validActors = bell.Map.mapPawns.SlavesAndPrisonersOfColonySpawned;
         validActors.AddRange(bell.Map.mapPawns.SpawnedColonyAnimals);
         validActors.AddRange(bell.Map.mapPawns.SpawnedColonyMechs);
-        validActors.AddRange(bell.Map.mapPawns.SpawnedColonyMutantsPlayerControlled);
+        validActors.AddRange(bell.Map.mapPawns.SpawnedColonySubhumansPlayerControlled);
         validActors.AddRange(bell.Map.mapPawns.FreeColonistsSpawned);
         return validActors;
     }
@@ -117,11 +117,6 @@ internal class ITab_BellManagerUtility
             {
                 continue;
             }
-
-            //if (!candidate.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
-            //{
-            //    continue;
-            //}
 
             actorList.Add(candidate);
         }
@@ -173,11 +168,6 @@ internal class ITab_BellManagerUtility
             {
                 continue;
             }
-
-            //if (!candidate.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
-            //{
-            //    continue;
-            //}
 
             actorList.Add(candidate);
         }

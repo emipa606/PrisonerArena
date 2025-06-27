@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: Arena Spot -->
+  <Building_ArenaBell.label>Arena Spot</Building_ArenaBell.label>
+  <!-- EN: An area in which the fights will be held. Prisoners will fight within the white zones and the spectators would stay by the grey zone. -->
+  <Building_ArenaBell.description>An area in which the fights will be held. Prisoners will fight within the white zones and the spectators would stay by the grey zone.</Building_ArenaBell.description>
+</LanguageData>

@@ -22,9 +22,9 @@ public class Building_Bell : Building //, IBillGiver
 
     public State currentState = State.rest;
 
-    public Fighter fighter1 = new Fighter();
+    public Fighter fighter1 = new();
 
-    public Fighter fighter2 = new Fighter();
+    public Fighter fighter2 = new();
 
     private Area fightingArea_int;
 
@@ -44,24 +44,6 @@ public class Building_Bell : Building //, IBillGiver
         set => fightingArea_int = value;
     }
 
-    //public IEnumerable<IntVec3> IngredientStackCells => throw new NotImplementedException();
-
-    //public BillStack BillStack => throw new NotImplementedException();
-
-    //public bool CurrentlyUsableForBills()
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    //public bool UsableForBillsAfterFueling()
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    public void Notify_BillDeleted(Bill bill)
-    {
-    }
-
 
     public override void ExposeData()
     {
@@ -76,9 +58,9 @@ public class Building_Bell : Building //, IBillGiver
         Scribe_Collections.Look(ref winners, "winners", LookMode.Value);
     }
 
-    public void brawl()
+    public void Brawl()
     {
-        if (IsBusy())
+        if (isBusy())
         {
             var state = currentState;
             switch (state)
@@ -109,14 +91,12 @@ public class Building_Bell : Building //, IBillGiver
         {
             Messages.Message("PA.CantMove".Translate(fighter1.p.Name.ToStringShort),
                 MessageTypeDefOf.RejectInput);
-            //return;
         }
 
         if (!fightCapable(fighter2.p))
         {
             Messages.Message("PA.CantMove".Translate(fighter2.p.Name.ToStringShort),
                 MessageTypeDefOf.RejectInput);
-            //return;
         }
 
         currentState = State.scheduled;
@@ -149,7 +129,7 @@ public class Building_Bell : Building //, IBillGiver
         mentalState.bellRef = this;
     }
 
-    public void endBrawl(Pawn pawn = null, bool suspended = false)
+    public void EndBrawl(Pawn pawn = null, bool suspended = false)
     {
         currentState = State.rest;
         Pawn winner = null;
@@ -217,94 +197,10 @@ public class Building_Bell : Building //, IBillGiver
         fighter2 = new Fighter();
     }
 
-    //public void TryReleasePrisoner(Pawn prisoner)
-    //{
-    //    Pawn warden = null;
-    //    foreach (var current in Map.mapPawns.FreeColonistsSpawned)
-    //    {
-    //        if (current.Dead)
-    //        {
-    //            continue;
-    //        }
-
-    //        if (!(current.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) &&
-    //              current.health.capacities.CapableOf(PawnCapacityDefOf.Moving)))
-    //        {
-    //            continue;
-    //        }
-
-    //        warden = current;
-    //        break;
-    //    }
-
-    //    if (warden != null)
-    //    {
-    //        if (!RCellFinder.TryFindPrisonerReleaseCell(prisoner, warden, out var c))
-    //        {
-    //            Messages.Message("PA.NoSpot".Translate(), MessageTypeDefOf.RejectInput);
-    //            return;
-    //        }
-
-    //        Log.Message("PA.WillRelease".Translate(warden.NameShortColored, prisoner.NameShortColored));
-    //        var job = new Job(JobDefOf.ReleasePrisoner, prisoner, c);
-    //        warden.jobs.EndCurrentJob(JobCondition.InterruptForced, false, false);
-    //        warden.jobs.TryTakeOrderedJob(job);
-    //    }
-    //    else
-    //    {
-    //        Messages.Message("PA.NoWarden".Translate(), MessageTypeDefOf.RejectInput);
-    //    }
-    //}
-
-    //public void TryHaulPrisoners(Pawn prisoner)
-    //{
-    //    Pawn warden = null;
-    //    foreach (var current in Map.mapPawns.FreeColonistsSpawned)
-    //    {
-    //        if (current.Dead)
-    //        {
-    //            continue;
-    //        }
-
-    //        if (!(current.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) &&
-    //              current.health.capacities.CapableOf(PawnCapacityDefOf.Moving)))
-    //        {
-    //            continue;
-    //        }
-
-    //        warden = current;
-    //        break;
-    //    }
-
-    //    if (warden != null)
-    //    {
-    //        StartHaulPrisoners(warden, prisoner);
-    //    }
-    //    else
-    //    {
-    //        Messages.Message(
-    //            "PA.NoWardenToFight".Translate(),
-    //            MessageTypeDefOf.RejectInput);
-    //    }
-    //}
-
-    //private void StartHaulPrisoners(Pawn warden, Pawn prisoner)
-    //{
-    //    if (Destroyed || !Spawned)
-    //    {
-    //        TryCancelBrawl("PA.NoBell".Translate());
-    //    }
-    //    else
-    //    {
-    //        var job = new Job(JobDefOfArena.HaulingPrisoner, prisoner, this, getFighterStandPoint());
-    //        warden.jobs.TryTakeOrderedJob(job);
-    //    }
-    //}
-
-    public void PrisonerDelievered(Pawn p)
+    public void PrisonerDelivered(Pawn p)
     {
-        getFighter(p).isInFight = true;
-        startFightingState(getFighter(p));
+        GetFighter(p).isInFight = true;
+        startFightingState(GetFighter(p));
         if (!(fighter1.isInFight && fighter2.isInFight))
         {
             return;
@@ -316,7 +212,7 @@ public class Building_Bell : Building //, IBillGiver
         startFightingState(fighter2);
     }
 
-    public void startTheShow()
+    public void StartTheShow()
     {
         LordMaker.MakeNewLord(Faction, new LordJob_Joinable_FightingMatch(Position, this), Map);
     }
@@ -329,7 +225,7 @@ public class Building_Bell : Building //, IBillGiver
         return stringBuilder.ToString();
     }
 
-    private bool fightCapable(Pawn p)
+    private static bool fightCapable(Pawn p)
     {
         bool result;
         if (!p.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
@@ -345,22 +241,22 @@ public class Building_Bell : Building //, IBillGiver
         return result;
     }
 
-    private bool IsBusy()
+    private bool isBusy()
     {
-        return IsInFight() || IsPreparing();
+        return isInFight() || isPreparing();
     }
 
-    private bool IsInFight()
+    private bool isInFight()
     {
         return currentState == State.fight;
     }
 
-    private bool IsPreparing()
+    private bool isPreparing()
     {
         return currentState == State.preparation;
     }
 
-    public IntVec3 getFighterStandPoint()
+    public IntVec3 GetFighterStandPoint()
     {
         var comp = GetComp<CompBell>();
         var isInFight = fighter1.isInFight;
@@ -369,7 +265,7 @@ public class Building_Bell : Building //, IBillGiver
         return isInFight ? orderedCells.First() : orderedCells.Last();
     }
 
-    public Fighter getFighter(Pawn p)
+    public Fighter GetFighter(Pawn p)
     {
         Fighter result;
         if (p == fighter1.p)
@@ -384,7 +280,7 @@ public class Building_Bell : Building //, IBillGiver
         return result;
     }
 
-    public Pawn getPrisonerForHaul()
+    public Pawn GetPrisonerForHaul()
     {
         var p = !fighter1.isInFight ? fighter1.p : fighter2.p;
         return p;

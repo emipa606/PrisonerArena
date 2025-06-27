@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: arena fighting -->
+  <Fighter.label>arena fighting</Fighter.label>
+  <!-- EN: In battle -->
+  <Fighter.baseInspectLine>In battle</Fighter.baseInspectLine>
+  <!-- EN: {0} is fighting at the arena. Remove this later -->
+  <Fighter.beginLetter>{0} is fighting at the arena. Remove this later</Fighter.beginLetter>
+  <!-- EN: Started battle -->
+  <Fighter.beginLetterLabel>Started battle</Fighter.beginLetterLabel>
+</LanguageData>

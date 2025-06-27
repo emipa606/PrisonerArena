@@ -47,7 +47,7 @@ public class CompBell : ThingComp
             }
 
             var cellRect = CellRect.CenteredOn(parent.Position, 1).ExpandedBy(Mathf.RoundToInt(radius));
-            return ValidCellsAround(parent.Position, parent.Map, cellRect.ContractedBy(audience));
+            return validCellsAround(parent.Position, parent.Map, cellRect.ContractedBy(audience));
         }
     }
 
@@ -96,9 +96,10 @@ public class CompBell : ThingComp
             return;
         }
 
-        var outerSquareCells = CellRect.CenteredOn(parent.Position, 1).ExpandedBy(Mathf.RoundToInt(radius)).Cells;
+        var outerSquareCells = CellRect.CenteredOn(parent.Position, 1).ExpandedBy(Mathf.RoundToInt(radius)).Cells
+            .ToArray();
         var innerSquareCells = CellRect.CenteredOn(parent.Position, 1).ExpandedBy(Mathf.RoundToInt(radius))
-            .ContractedBy(audience).Cells;
+            .ContractedBy(audience).Cells.ToArray();
         var validOuterCells = new List<IntVec3>();
         var validInnerCells = new List<IntVec3>();
 
@@ -207,7 +208,7 @@ public class CompBell : ThingComp
         }
     }
 
-    private List<IntVec3> ValidCellsAround(IntVec3 pos, Map map, CellRect rect)
+    private static List<IntVec3> validCellsAround(IntVec3 pos, Map map, CellRect rect)
     {
         validCells.Clear();
         List<IntVec3> result;
@@ -218,17 +219,13 @@ public class CompBell : ThingComp
         else
         {
             var region = pos.GetRegion(map);
-            if (region == null)
-            {
-                result = validCells;
-            }
-            else
+            if (region != null)
             {
                 RegionTraverser.BreadthFirstTraverse(region, (_, r) => r.door == null, delegate(Region r)
                 {
                     foreach (var item in r.Cells)
                     {
-                        if (InDistOfRect(item, rect))
+                        if (inDistOfRect(item, rect))
                         {
                             validCells.Add(item);
                         }
@@ -236,14 +233,15 @@ public class CompBell : ThingComp
 
                     return false;
                 }, 13);
-                result = validCells;
             }
+
+            result = validCells;
         }
 
         return result;
     }
 
-    private bool InDistOfRect(IntVec3 pos, CellRect rect)
+    private static bool inDistOfRect(IntVec3 pos, CellRect rect)
     {
         var num = (float)pos.x;
         var num2 = (float)pos.z;

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: load transporters -->
+  <HandleFight.label>load transporters</HandleFight.label>
+  <!-- EN: loading -->
+  <HandleFight.gerund>loading</HandleFight.gerund>
+  <!-- EN: load -->
+  <HandleFight.verb>load</HandleFight.verb>
+</LanguageData>

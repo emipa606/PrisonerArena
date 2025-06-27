@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: cheering for a fighter. -->
+  <Cheer.reportString>cheering for a fighter.</Cheer.reportString>
+  <!-- EN: preparing participants for a fight. -->
+  <HaulingPrisoner.reportString>preparing participants for a fight.</HaulingPrisoner.reportString>
+  <!-- EN: spectating a fighting match. -->
+  <SpectateFightingMatch.reportString>spectating a fighting match.</SpectateFightingMatch.reportString>
+</LanguageData>

@@ -37,17 +37,17 @@ public class LordJob_Joinable_FightingMatch : LordJob_VoluntarilyJoinable
 
     public override float VoluntaryJoinPriorityFor(Pawn p)
     {
-        var result = IsInvited(p) ? VoluntarilyJoinableLordJobJoinPriorities.SocialGathering : 0f;
+        var result = isInvited(p) ? VoluntarilyJoinableLordJobJoinPriorities.SocialGathering : 0f;
 
         return result;
     }
 
-    public virtual string GetReport()
+    public override string GetReport(Pawn pawn)
     {
         return "LordReportAttendingParty".Translate();
     }
 
-    private bool IsInvited(Pawn p)
+    private bool isInvited(Pawn p)
     {
         return lord.faction != null && p.Faction == lord.faction;
     }

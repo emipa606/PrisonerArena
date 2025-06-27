@@ -30,17 +30,17 @@ public class JobDriver_SpectateMatch : JobDriver
         yield return Toils_Goto.GotoCell(MySpotOrChairInd, PathEndMode.OnCell);
         yield return new Toil
         {
-            tickAction = delegate
+            tickIntervalAction = delegate(int delta)
             {
                 var thing = pawn.mindState?.duty?.focus.Thing;
                 if (thing is Building_Bell { currentState: Building_Bell.State.fight })
                 {
-                    JoyUtility.JoyTickCheckEnd(pawn, JoyTickFullJoyAction.None);
+                    JoyUtility.JoyTickCheckEnd(pawn, delta, JoyTickFullJoyAction.None);
                 }
 
                 pawn.rotationTracker?.FaceCell(job.GetTarget(WatchTargetInd).Cell);
-                pawn.GainComfortFromCellIfPossible();
-                if (pawn.IsHashIntervalTick(100))
+                pawn.GainComfortFromCellIfPossible(delta);
+                if (pawn.IsHashIntervalTick(100, delta))
                 {
                     pawn.jobs.CheckForJobOverride();
                 }

@@ -22,7 +22,7 @@ public class JobGiver_Fighter : JobGiver_AIFightEnemy
         var state = (MentalState_Fighter)pawn.MentalState;
         var pawnTarget = state.otherPawn;
         var bellRef = state.bellRef;
-        var fighterTarget = bellRef.getFighter(pawnTarget);
+        var fighterTarget = bellRef.GetFighter(pawnTarget);
 
         if (!fighterTarget.isInFight || Rand.Value < WaitChance)
         {
@@ -141,20 +141,6 @@ public class JobGiver_Fighter : JobGiver_AIFightEnemy
             expiryInterval = ExpiryInterval_ShooterSucceeded.RandomInRange,
             checkOverrideOnExpire = true
         };
-    }
-
-    private Pawn FindPawnTarget(Pawn pawn)
-    {
-        return (Pawn)AttackTargetFinder.BestAttackTarget(pawn,
-            TargetScanFlags.NeedReachable | TargetScanFlags.NeedThreat, x => x is Pawn, 0f, 40f, default,
-            float.MaxValue, true);
-    }
-
-    public bool InDistOfRect(IntVec3 pos, IntVec3 otherLoc, CellRect rect)
-    {
-        var num = (float)pos.x;
-        var num2 = (float)pos.z;
-        return num <= rect.maxX && num >= rect.minX && num2 <= rect.maxZ && num2 >= rect.minZ;
     }
 
     protected override bool TryFindShootingPosition(Pawn pawn, out IntVec3 dest, Verb verbToUse = null)

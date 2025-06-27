@@ -40,15 +40,13 @@ public class WorkGiver_HandleFight : WorkGiver_Scanner
             return false;
         }
 
-        if (building.currentState == Building_Bell.State.rest)
+        switch (building.currentState)
         {
-            return false;
-        }
-
-        if (building.currentState == Building_Bell.State.scheduled)
-        {
-            return pawn.CanReserve(building.fighter1.p, 1, -1, null, forced) &&
-                   pawn.CanReserve(building.fighter2.p, 1, -1, null, forced);
+            case Building_Bell.State.rest:
+                return false;
+            case Building_Bell.State.scheduled:
+                return pawn.CanReserve(building.fighter1.p, 1, -1, null, forced) &&
+                       pawn.CanReserve(building.fighter2.p, 1, -1, null, forced);
         }
 
         if (building.fighter1.isInFight)
@@ -72,8 +70,8 @@ public class WorkGiver_HandleFight : WorkGiver_Scanner
 
         if (t is Building_Bell bell)
         {
-            return new Job(JobDefOfArena.HaulingPrisoner, bell.getPrisonerForHaul(), bell,
-                bell.getFighterStandPoint())
+            return new Job(JobDefOfArena.HaulingPrisoner, bell.GetPrisonerForHaul(), bell,
+                bell.GetFighterStandPoint())
             {
                 count = 1
             };

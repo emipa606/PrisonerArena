@@ -16,10 +16,10 @@ public class JobDriver_Cheer : JobDriver
     {
         yield return new Toil
         {
-            tickAction = delegate
+            tickIntervalAction = delegate(int delta)
             {
-                pawn.GainComfortFromCellIfPossible();
-                if (pawn.IsHashIntervalTick(100))
+                pawn.GainComfortFromCellIfPossible(delta);
+                if (pawn.IsHashIntervalTick(100, delta))
                 {
                     pawn.jobs.CheckForJobOverride();
                 }
