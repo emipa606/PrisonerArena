@@ -60,23 +60,19 @@ public class WorkGiver_HandleFight : WorkGiver_Scanner
 
     public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
     {
-        if (t is Building_Bell building && building.currentState != Building_Bell.State.scheduled)
+        switch (t)
         {
-            if (building.fighter1.isInFight)
-            {
+            case Building_Bell building when building.currentState != Building_Bell.State.scheduled &&
+                                             building.fighter1.isInFight:
                 return null;
-            }
+            case Building_Bell bell:
+                return new Job(JobDefOfArena.HaulingPrisoner, bell.GetPrisonerForHaul(), bell,
+                    bell.GetFighterStandPoint())
+                {
+                    count = 1
+                };
+            default:
+                return null;
         }
-
-        if (t is Building_Bell bell)
-        {
-            return new Job(JobDefOfArena.HaulingPrisoner, bell.GetPrisonerForHaul(), bell,
-                bell.GetFighterStandPoint())
-            {
-                count = 1
-            };
-        }
-
-        return null;
     }
 }

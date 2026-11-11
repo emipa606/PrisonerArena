@@ -1,41 +1,79 @@
-# GitHub Copilot Instructions for RimWorld Mod Project
+# GitHub Copilot Instructions for Prisoner Arena (Continued)
 
 ## Mod Overview and Purpose
 
-This RimWorld mod introduces a new gameplay feature centered around organizing and managing arena fights between pawns. The purpose of this mod is to add a dynamic social and combat experience to the game, allowing players to host and participate in brawls. Players can use structures like a bell to start and manage fights, providing a fun and engaging way to use the in-game combat mechanics for entertainment and conflict resolution.
+The Prisoner Arena (Continued) mod is an update to Gl0b's original Prisoner Arena mod for RimWorld. The mod allows for fights between prisoners, slaves, animals, mechs, and mutants. Spectators can watch the fights and build fences around the fighting area. The mod also includes a scoreboard to track the names of all winners and the option to release winning prisoners as rewards.
 
 ## Key Features and Systems
 
-- **Building_Bell**: Central to the mod, this structure manages the initiation and control of brawls. It tracks the state of fights and manages interactions with fighters and spectators.
-- **Fighter System**: Pawns can be designated as Fighters, which allows them to participate in arena events. Various routines, such as cheering and spectating, enhance the realism of these events.
-- **Audience and Radial Effects**: The audience's reactions are governed by the radius around the arena, impacting mood and event outcomes.
-- **Integration with RimWorld**: Utilizes the game's standard classes and mechanics, enhancing them with custom behavior for a seamless modded experience.
+- **Fight Duration**: Fights can now continue until death.
+- **Scoreboard**: Keeps track of all the winners.
+- **Reward System**: Winning prisoners can be released as rewards in addition to gaining glory.
+- **Spectators**: Spectators can watch the fights from outside the gray area, allowing for the construction of fences around the fighters.
+- **Fighter Selection**: Animals, slaves, mechs, and mutants can be selected as fighters.
+- **Language Support**: Russian translation added.
 
 ## Coding Patterns and Conventions
 
-- **Class Naming**: Classes are named following their functional roles (e.g., `Building_Bell`, `JobDriver_Cheer`), ensuring clarity on their use and integration.
-- **Method Naming**: Methods generally describe their operations (e.g., `StartTheShow`, `isBusy`), making it intuitive to follow the code's logic and intentions.
-- **C# Conventions**: Adheres to typical C# coding standards with PascalCase for public methods and camelCase for private methods.
+- **C# Classes and Methods**: Follow standard C# naming conventions and structure.
+- **XML Definitions**: Use XML files to define new duties, interactions, jobs, mental states, and thing definitions.
+- **Harmony Patching**: Use Harmony to patch existing RimWorld code to integrate new features.
 
 ## XML Integration
 
-Given the complexity of integrating with RimWorld's XML-based definitions, the following guidance is provided:
+The mod uses XML files to define various aspects of the game, such as new duties, interactions, jobs, mental states, and thing definitions. These XML files are located in the `Defs` directory of the mod.
 
-- **Ensure XML Definitions**: Properly define your custom jobs, interactions, thoughts, and mental states in XML to allow integration with the game's systems.
-- **Error Handling**: Pay special attention to syntax and references within your XML files, as errors could prevent the mod from loading properly.
+Example XML file (`Defs/DutyDefs/Duties_Arena_Gatherings.xml`):
+xml
+<DutyDef>
+    <defName>ArenaGathering</defName>
+    <label>Arena Gathering</label>
+    <description>Prisoners are gathered for a fight.</description>
+    <pawnSkill>Combat</pawnSkill>
+</DutyDef>
+
 
 ## Harmony Patching
 
-- **Patching Essentials**: Use Harmony to patch existing RimWorld methods where modification is needed. This ensures the mod's functionality integrates smoothly without altering the base game files.
-- **Patch Scope**: Only patch methods where necessary, keeping the scope limited to enhance compatibility with other mods.
-- **Logging**: Implement logging for patches to facilitate debugging and troubleshooting, especially for complex interactions.
+The mod uses Harmony to patch existing RimWorld code to integrate new features. Harmony is a library that allows for the modification of game code without directly editing the original binaries.
+
+Example Harmony patch (`Building_Bell.cs`):
+csharp
+[HarmonyPatch(typeof(Pawn), "GetGatherSpot", MethodType.Getter)]
+public static class Pawn_GetGatherSpot_Patch
+{
+    [HarmonyPostfix]
+    public static void Postfix(Pawn __instance, ref IntVec3 __result)
+    {
+        if (__instance.IsPrisoner())
+        {
+            __result = ArenaManager.GetGatherSpot(__instance);
+        }
+    }
+}
+
 
 ## Suggestions for Copilot
 
-1. **Pattern Recognition**: Continuously suggest methods and classes based on repetitive patterns observed in similar game mods or RimWorld projects.
-2. **Ensure Compatibility**: Promote code snippets that maintain compatibility with RimWorld's modding API and existing code conventions.
-3. **XML Consistency**: Advocate for well-structured XML suggestions, particularly for defining new elements like `ThingDefs` and `JobDefs`.
-4. **Harmony Patching**: Encourage safe and structured Harmony patch methodologies for maintaining compatibility and reducing errors.
-5. **Documentation and Comments**: Suggest inline documentation and comments for complex logic to enhance code maintainability and clarity for future developers.
+- **Provide XML Examples**: When generating XML definitions, provide examples of existing definitions in the mod.
+- **Use Harmony Patches**: When generating code to modify existing RimWorld functionality, suggest using Harmony patches.
+- **Follow Naming Conventions**: Ensure that generated code follows standard C# naming conventions and structures.
+- **Integrate with XML**: When generating C# code that interacts with XML definitions, ensure that the code correctly references and uses the XML data.
 
-This instruction file serves as a foundation for mod developers utilizing GitHub Copilot to streamline the development process, ensuring a cohesive and stable modding experience.
+By following these guidelines, Copilot will be able to generate code that is consistent with the mod's style and functionality.
+
+## Project Solution Guidelines
+- Relevant mod XML files are included as Solution Items under the solution folder named XML, these can be read and modified from within the solution.
+- Use these in-solution XML files as the primary files for reference and modification.
+- The `.github/copilot-instructions.md` file is included in the solution under the `.github` solution folder, so it should be read/modified from within the solution instead of using paths outside the solution. Update this file once only, as it and the parent-path solution reference point to the same file in this workspace.
+- When making functional changes in this mod, ensure the documented features stay in sync with implementation; use the in-solution `.github` copy as the primary file.
+- In the solution is also a project called Assembly-CSharp, containing a read-only version of the decompiled game source, for reference and debugging purposes.
+- For any new documentation, update this copilot-instructions.md file rather than creating separate documentation files.
+
+
+## Hard rules (must follow)
+- Do NOT run commands that modify the repo (no git commit, git apply, dotnet format) unless explicitly asked.
+- Prefer minimal reads: read only the smallest code region needed (around the suspicious lines).
+- When mentioning SonarQube issues, automatically use the SonarQube MCP service to fetch and address issues instead of making inferred fixes without querying SonarQube first.
+- When mentioning the rimworld log, automatically use the Rimworld MCP service to fetch the log.
+

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <WorkGiverDef>
+    <defName>HandleFight</defName>
+    <label>load transporters</label>
+    <giverClass>ArenaBell.WorkGiver_HandleFight</giverClass>
+    <workType>Warden</workType>
+    <verb>load</verb>
+    <gerund>loading</gerund>
+    <priorityInType>110</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+</Defs>

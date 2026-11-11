@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--============= Item hauling ===============-->
+  <JobDef>
+    <defName>HaulingPrisoner</defName>
+    <driverClass>ArenaBell.JobDriver_HaulPrisoner</driverClass>
+    <reportString>preparing participants for a fight.</reportString>
+    <joyDuration>1600</joyDuration>
+    <joyGainRate>2</joyGainRate>
+    <alwaysShowWeapon>true</alwaysShowWeapon>
+    <joyMaxParticipants>20</joyMaxParticipants>
+  </JobDef>
+  <JobDef>
+    <defName>SpectateFightingMatch</defName>
+    <driverClass>ArenaBell.JobDriver_SpectateMatch</driverClass>
+    <reportString>spectating a fighting match.</reportString>
+    <joyGainRate>10</joyGainRate>
+    <joyKind>Social</joyKind>
+  </JobDef>
+  <JobDef>
+    <defName>Cheer</defName>
+    <driverClass>ArenaBell.JobDriver_CheerForFighter</driverClass>
+    <reportString>cheering for a fighter.</reportString>
+    <joyGainRate>10</joyGainRate>
+    <joyKind>Social</joyKind>
+  </JobDef>
+</Defs>

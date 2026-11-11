@@ -162,12 +162,9 @@ internal class ITab_BellManager : ITab
 
     private static string FighterLabel(Building_Bell bell, int index)
     {
-        if (index == 0)
+        if (index == 0 && bell.fighter1.p != null)
         {
-            if (bell.fighter1.p != null)
-            {
-                return bell.fighter1.p.Name.ToStringShort;
-            }
+            return bell.fighter1.p.Name.ToStringShort;
         }
 
         if (index != 1)

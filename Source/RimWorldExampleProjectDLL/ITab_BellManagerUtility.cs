@@ -4,7 +4,7 @@ using Verse;
 
 namespace ArenaBell;
 
-internal class ITab_BellManagerUtility
+internal static class ITab_BellManagerUtility
 {
     public static string FighterLabel(int index, Building_Bell bell)
     {

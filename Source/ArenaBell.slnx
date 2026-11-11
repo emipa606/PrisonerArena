@@ -6,4 +6,34 @@
     <BuildType Name="Release" />
   </Configurations>
   <Project Path="RimWorldExampleProjectDLL/ArenaBell.csproj" />
+  <Folder Name="/XML/Patches/">
+    <File Path="../Patches/ThinkTree_Patch.xml" />
+  </Folder>
+  <Folder Name="/XML/1.7/Defs/JobDefs/">
+    <File Path="../1.7/Defs/JobDefs/Arena_Jobs.xml" />
+  </Folder>
+  <Folder Name="/XML/1.7/Defs/MentalStateDefs/">
+    <File Path="../1.7/Defs/MentalStateDefs/MentalStates_Special.xml" />
+  </Folder>
+  <Folder Name="/XML/1.7/Defs/ThoughtDefs/">
+    <File Path="../1.7/Defs/ThoughtDefs/Thoughts_Memory_Arena.xml" />
+  </Folder>
+  <Folder Name="/XML/Languages/English/Keyed/">
+    <File Path="../Languages/English/Keyed/ArenaBell.xml" />
+  </Folder>
+  <Folder Name="/XML/About/">
+    <File Path="../About/about.xml" />
+  </Folder>
+  <Folder Name="/XML/1.7/Defs/DutyDefs/">
+    <File Path="../1.7/Defs/DutyDefs/Duties_Arena_Gatherings.xml" />
+  </Folder>
+  <Folder Name="/XML/1.7/Defs/ThingDefs/">
+    <File Path="../1.7/Defs/ThingDefs/Building_ArenaBell.xml" />
+  </Folder>
+  <Folder Name="/XML/1.7/Defs/WorkGiversDefs/">
+    <File Path="../1.7/Defs/WorkGiversDefs/WorkGiverDefs.xml" />
+  </Folder>
+  <Folder Name="/XML/1.7/Defs/InteractionDefs/">
+    <File Path="../1.7/Defs/InteractionDefs/Interactions_Arena.xml" />
+  </Folder>
 </Solution>

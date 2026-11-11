@@ -26,8 +26,6 @@ public class Building_Bell : Building //, IBillGiver
 
     public Fighter fighter2 = new();
 
-    private Area fightingArea_int;
-
     public bool toDeath;
 
     public bool winnerGetsFreedom;
@@ -38,10 +36,10 @@ public class Building_Bell : Building //, IBillGiver
     {
         get
         {
-            var result = fightingArea_int != null && fightingArea_int.Map != MapHeld ? null : fightingArea_int;
+            var result = field != null && field.Map != MapHeld ? null : field;
             return result;
         }
-        set => fightingArea_int = value;
+        set;
     }
 
 
